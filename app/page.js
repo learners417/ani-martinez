@@ -141,7 +141,7 @@ function CheckIn() {
 
 /* ── Próxima sesión con Ani ──────────────────────────────── */
 function ProximaSesion() {
-  const { estado, actualizar } = useTamim();
+  const { estado, actualizar, sesion } = useTamim();
   const [editar, setEditar] = useState(false);
   const [valor, setValor] = useState("");
   const [, forzar] = useState(0);
@@ -174,12 +174,12 @@ function ProximaSesion() {
       </div>
       <p className="grande mt">{cuenta}</p>
       <p className="bajada mt">{fechaLarga(iso).replace(/^./, (c) => c.toUpperCase())}</p>
-      <button
+      {!sesion?.demo && <button
         className="boton claro mt"
         onClick={() => descargarICS({ titulo: "Sesión con Ani · TamÍm", inicio: iso, detalle: "Responde tus 3 preguntas en la app 24 h antes." })}
       >
         Agregar a mi calendario
-      </button>
+      </button>}
     </div>
   );
 }

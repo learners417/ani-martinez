@@ -251,3 +251,18 @@ body, h1, h2, h3, .numero, .grande, .cita, .bajada { font-variant-numeric: linin
 body.cuerpo-noche .nav a.hablar { background: #35302A; color: #F6F2EA; }
 .celebrar.quieta::before, .celebrar.quieta::after { display: none; }
 .celebrar.quieta { height: auto; padding-top: 24px; }
+/* ── Modo prueba ── */
+.demo-barra {
+  position: fixed; top: calc(10px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); z-index: 40;
+  display: flex; align-items: center; gap: 12px; padding: 6px 6px 6px 16px;
+  background: rgba(246,242,234,.96); border: 1px solid rgba(195,168,120,.6); border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(36,32,24,.08);
+}
+.demo-barra .versalita { white-space: nowrap; }
+.demo-barra button { background: var(--tinta); color: var(--crema); border-radius: 999px; padding: 8px 16px; font-size: 16px; }
+.demo-hoja { position: fixed; inset: 0; z-index: 50; background: rgba(26,24,21,.45); display: flex; align-items: flex-end; }
+.demo-panel {
+  width: 100%; max-width: 560px; margin: 0 auto; background: var(--crema); color: var(--tinta);
+  border-radius: 26px 26px 0 0; padding: 26px 20px calc(26px + env(safe-area-inset-bottom)); max-height: 92dvh; overflow: auto;
+}
+body:has(.demo-barra) .pantalla { padding-top: 70px; }

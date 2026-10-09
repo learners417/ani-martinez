@@ -20,9 +20,9 @@ function Radiografia() {
   const [resp, setResp] = useState({});
   const [fin, setFin] = useState(Boolean(estado.radiografias?.[m]));
 
-  const bloqueada =
+  const bloqueada = !estado.demoAbierto && (
     (m === "mitad" && !estacionHecha(estado, 2)) ||
-    (m === "salida" && ![1, 2, 3, 4, 5].every((n) => estacionHecha(estado, n)));
+    (m === "salida" && ![1, 2, 3, 4, 5].every((n) => estacionHecha(estado, n))));
   if (bloqueada && !fin)
     return (
       <>

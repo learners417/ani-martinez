@@ -12,6 +12,22 @@ import Respirador from "@/components/Respirador";
 import AudioAni from "@/components/AudioAni";
 import { Antorcha } from "@/components/Kit";
 
+// En el modo prueba no hay IA conectada: respuestas de muestra con el tono del manual.
+const DEMO = {
+  "estoy agotada": "Te creo. Llevas mucho tiempo sosteniendo todo por fuera. Hoy no te pido más: toma agua, come algo de verdad y acuéstate media hora antes. Somos espíritu, alma y cuerpo, y tu cuerpo te está hablando. ¿Qué es lo que más te pesa hoy?",
+  "me cuesta un ejercicio": "Está bien que cueste: ahí es donde se trabaja. Escribe aunque sea una frase, con tus palabras, sin corregir. Si no te salen, toca el micrófono y dilo en voz alta. Lo que no puedas resolver lo llevamos a tu sesión con Ani.",
+  "quiero orar": "Hagámoslo juntas. Cierra los ojos y respira lento. Señor, aquí estoy, cansada y con la mente llena. Pongo en tus manos lo que no puedo controlar. Dame paz para descansar y sabiduría para mañana. Amén.",
+  "no sé qué siento": "Empecemos por el cuerpo, que no miente. ¿Dónde lo sientes: en el pecho, en el estómago, en los hombros? Ponle una palabra, aunque sea imperfecta. Con eso ya tenemos por dónde empezar.",
+  "no puedo dormir": "Estás despierta y no estás sola. Suelta la mandíbula y los hombros. Inhala en 4, sostén en 4, suelta en 6. Hazlo tres veces conmigo. No pienses en mañana: ahora solo importa este aire.",
+  "tengo la cabeza a mil": "Saca todo de la cabeza: ve a Soltar la mente y escribe sin orden. Lo que está escrito ya no tienes que sostenerlo despierta. Después vuelve aquí y respiramos.",
+  "tengo miedo": "El miedo de madrugada siempre se ve más grande. Dime en una frase qué es lo que temes. Y recuerda: no tienes que resolverlo ahora, solo atravesar esta noche.",
+};
+const respuestaDemo = (t, noche) =>
+  DEMO[t.toLowerCase()] ||
+  (noche
+    ? "Estoy aquí. Respira lento conmigo: inhala 4, sostén 4, suelta 6. Cuéntame qué sientes en el cuerpo ahora mismo."
+    : "Gracias por contármelo. Esto es una respuesta de muestra: en la app real te respondo con la voz y el método de Ani, según la estación en la que estás.");
+
 const ATAJOS_DIA = ["Estoy agotada", "Me cuesta un ejercicio", "Quiero orar", "No sé qué siento"];
 const ATAJOS_NOCHE = ["No puedo dormir", "Tengo la cabeza a mil", "Quiero orar", "Tengo miedo"];
 
@@ -40,7 +56,9 @@ function Compania() {
     actualizar((s) => ({ ...s, chat: mensajes.slice(-60) }));
     setTexto("");
     setPensando(true);
-    const r = await fetch("/api/ia", {
+    const r = sesion.demo
+      ? await new Promise((ok) => setTimeout(() => ok({ texto: respuestaDemo(t, noche) }), 1100))
+      : await fetch("/api/ia", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

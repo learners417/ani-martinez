@@ -1,10 +1,11 @@
+import { BASE } from "@/lib/base";
 import "./globals.css";
 import { TamimProvider } from "@/lib/store";
 
 export const metadata = {
   title: "TamÍm · Ani Martínez",
   description: "Tu camino en El Círculo de Restauración",
-  manifest: "/manifest.json",
+  manifest: `${BASE}/manifest.json`,
   appleWebApp: { capable: true, title: "TamÍm", statusBarStyle: "default" },
 };
 
@@ -20,8 +21,8 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lora:ital,wght@0,400;1,400&display=swap"
         />
-        <link rel="apple-touch-icon" href="/icono-192.png" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href={`${BASE}/icono-192.png`} />
+        <link rel="icon" type="image/png" href={`${BASE}/favicon.png`} />
       </head>
       <body>
         <TamimProvider>{children}</TamimProvider>
