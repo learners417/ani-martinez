@@ -15,8 +15,7 @@ function Entrar() {
     if (!listo) return;
     const t = q.get("t");
     if (q.get("demo") === "1") {
-      iniciarSesion({ token: "demo", email: "demo", nombre: "Carolina", demo: true });
-      router.replace("/");
+      router.replace("/prueba");
       return;
     }
     if (!t) {

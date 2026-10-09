@@ -209,7 +209,7 @@ function Siguiente({ paso }) {
   return (
     <div className="tarjeta" style={{ borderColor: "var(--oro)", padding: "30px 24px" }}>
       <p className="versalita">Tu paso de hoy</p>
-      <p className="nota" style={{ marginTop: 6 }}>{sobre}</p>
+      <p className="nota" style={{ marginTop: 6 }}>{sobre} {paso.tipo === "estacion" && ESTACIONES[paso.n - 1].ejemplo && <span className="chip">Ejemplo</span>}</p>
       <h2 className="mt">{titulo}</h2>
       <p className="bajada mt">{bajada}</p>
       <Link className="boton mt2" href={href}>{cta} <IcoFlecha /></Link>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ESTACIONES, PREGUNTAS_PRE_SESION } from "@/lib/contenido";
 import { siguientePaso, semanaActual, estacionesHechas, est, racha, resumenSueno } from "@/lib/progreso";
 import { cuentaRegresiva } from "@/lib/util";
+import { consultantesEjemplo } from "@/lib/demo";
 import Marca from "@/components/Marca";
 import Grafico from "@/components/Grafico";
 
@@ -100,7 +101,13 @@ export default function Panel() {
     setDatos(d.consultantes);
   };
 
+  const [ejemplo, setEjemplo] = useState(false);
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("ejemplo") === "1") {
+      setEjemplo(true);
+      setDatos(consultantesEjemplo());
+      return;
+    }
     try { const k = localStorage.getItem(K); if (k) { setClave(k); cargar(k); } } catch {}
   }, []);
 
@@ -117,6 +124,7 @@ export default function Panel() {
       ) : (
         <>
           <h1>Tus consultantes</h1>
+          {ejemplo && <p className="nota">Datos de ejemplo para ver cómo funciona el panel.</p>}
           <div className="grid3 mt2">
             <div className="mini"><div className="numero">{datos.length}</div><div className="etq">en el Círculo</div></div>
             <div className="mini"><div className="numero" style={{ color: "var(--oro)" }}>{datos.filter((c) => semaforo(c).nivel === 0).length}</div><div className="etq">al día</div></div>
@@ -124,7 +132,11 @@ export default function Panel() {
           </div>
           <p className="bajada mt2">Primero las que necesitan atención. Toca un nombre para ver todo.</p>
           {[...datos].sort((a, b) => semaforo(b).nivel - semaforo(a).nivel).map((c) => <Ficha key={c.email} c={c} />)}
-          <button className="boton claro mt2" onClick={() => cargar(clave)}>Actualizar</button>
+          {ejemplo ? (
+            <a className="boton claro mt2" href="/prueba">Volver al modo prueba</a>
+          ) : (
+            <button className="boton claro mt2" onClick={() => cargar(clave)}>Actualizar</button>
+          )}
         </>
       )}
     </main>

@@ -47,7 +47,7 @@ function Camino() {
               >
                 <span className={`letra ${hecha ? "hecha" : abierta ? "actual" : ""}`} style={{ flex: "none" }}>{e.letra}</span>
                 <span>
-                  <span className="versalita">{e.semanas}</span>
+                  <span className="versalita">{e.semanas}</span>{e.ejemplo && <span className="chip">Ejemplo</span>}
                   <br />
                   <span style={{ fontFamily: "var(--serif)", fontSize: 24, lineHeight: 1.15 }}>{e.tema}</span>
                   <br />

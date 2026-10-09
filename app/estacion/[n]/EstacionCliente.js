@@ -167,7 +167,7 @@ function Estacion() {
 
   return (
     <>
-      <p className="versalita">Estación {e.letra} · {e.semanas}</p>
+      <p className="versalita">Estación {e.letra} · {e.semanas} {e.ejemplo && <span className="chip">Ejemplo</span>}</p>
       <p style={{ fontFamily: "var(--serif)", fontSize: 24, marginTop: 6, lineHeight: 1.2 }}>{e.tema}</p>
       <div className="pasos">
         {PANTALLAS.map((x, j) => (

@@ -266,3 +266,4 @@ body.cuerpo-noche .nav a.hablar { background: #35302A; color: #F6F2EA; }
   border-radius: 26px 26px 0 0; padding: 26px 20px calc(26px + env(safe-area-inset-bottom)); max-height: 92dvh; overflow: auto;
 }
 body:has(.demo-barra) .pantalla { padding-top: 70px; }
+.chip { display: inline-block; margin-left: 8px; padding: 2px 10px; border: 1px solid var(--oro); border-radius: 999px; font-family: var(--sans); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--oro-profundo); vertical-align: middle; }

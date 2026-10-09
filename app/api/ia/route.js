@@ -35,6 +35,7 @@ export async function POST(req) {
   if (!key)
     return Response.json({
       texto: "Estoy aquí contigo. En este momento la compañía no está conectada. Escríbele a Ani y vuelve a tu cuaderno: lo que estás trabajando ahí es tu siguiente paso.",
+      sinIA: true,
     });
 
   const e = ESTACIONES.find((x) => x.n === estacion);

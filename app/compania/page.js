@@ -26,7 +26,7 @@ const respuestaDemo = (t, noche) =>
   DEMO[t.toLowerCase()] ||
   (noche
     ? "Estoy aquí. Respira lento conmigo: inhala 4, sostén 4, suelta 6. Cuéntame qué sientes en el cuerpo ahora mismo."
-    : "Gracias por contármelo. Esto es una respuesta de muestra: en la app real te respondo con la voz y el método de Ani, según la estación en la que estás.");
+    : "Gracias por contármelo. Esta es una respuesta de muestra: con la IA conectada te respondo con la voz y el método de Ani, según la estación en la que estás.");
 
 const ATAJOS_DIA = ["Estoy agotada", "Me cuesta un ejercicio", "Quiero orar", "No sé qué siento"];
 const ATAJOS_NOCHE = ["No puedo dormir", "Tengo la cabeza a mil", "Quiero orar", "Tengo miedo"];
@@ -56,9 +56,7 @@ function Compania() {
     actualizar((s) => ({ ...s, chat: mensajes.slice(-60) }));
     setTexto("");
     setPensando(true);
-    const r = sesion.demo
-      ? await new Promise((ok) => setTimeout(() => ok({ texto: respuestaDemo(t, noche) }), 1100))
-      : await fetch("/api/ia", {
+    let r = await fetch("/api/ia", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -66,7 +64,13 @@ function Compania() {
         estacion: paso.tipo === "estacion" ? paso.n : null,
         modo: noche ? "3am" : "dia",
       }),
-    }).then((x) => x.json()).catch(() => ({ texto: "No pude responderte ahora. Vuelve a intentar en un minuto." }));
+    }).then((x) => x.json()).catch(() => null);
+    // En modo prueba, si la IA todavía no está conectada, responde una muestra con el tono de Ani.
+    if (sesion.demo && (!r || r.sinIA)) {
+      await new Promise((ok) => setTimeout(ok, 700));
+      r = { texto: respuestaDemo(t, noche) };
+    }
+    if (!r) r = { texto: "No pude responderte ahora. Vuelve a intentar en un minuto." };
     actualizar((s) => ({ ...s, chat: [...(s.chat || []), { rol: "ia", texto: r.texto }].slice(-60) }));
     setPensando(false);
   };
