@@ -217,7 +217,7 @@ CSS = '''html,body{margin:0;background:#F6F2EA}
  #alb .agrid{grid-template-columns:.8fr 1.2fr;align-items:center}
  #alb .who{grid-template-columns:1fr 1fr}
  #alb .offer{grid-template-columns:.8fr 1.2fr;padding:46px}
- #alb .steps{grid-template-columns:1fr 1fr 1fr}
+ 
  #alb .bar{justify-content:space-between}
  #alb .bar span{display:inline}
 }
@@ -401,7 +401,8 @@ def sesion_pie():
     return f'''<div id="alb"><div class="wrap narrow" style="padding-bottom:40px">
  <a class="no" href="{URL["gracias"]}" target="_top">No, gracias. Prefiero empezar con el libro.</a>
  <p class="firma">Ani Martínez<span>MÉTODO TAMÍM</span></p>
-</div></div>'''
+</div></div>
+<style>#alb .steps{{grid-template-columns:1fr!important}}</style>'''
 
 def agenda():
     cal = (f'''<script>(function(){{var ID="{CAL_ID}",w=document.getElementById('cal');if(!w)return;
@@ -438,10 +439,58 @@ def gracias():
 {FOOT}'''
     return doc('Ya es tuyo · Vuelve a dormir', c, noindex=True)
 
+def _reglas(css):
+    reglas, prof, cur = [], 0, ''
+    for ch in css:
+        cur += ch
+        if ch == '{': prof += 1
+        elif ch == '}':
+            prof -= 1
+            if prof == 0: reglas.append(cur.strip()); cur = ''
+    return reglas
+
+def bloque(html, tambien=''):
+    """Versión para pegar en un bloque «Código personalizado» de GHL: sin <html>/<head>,
+    solo con el CSS que la página usa y sin el script de aparición."""
+    import re
+    if '<style>' not in html: return html
+    s, e = html.find('<style>') + 7, html.find('</style>')
+    css = html[s:e]
+    cuerpo = html[html.find('<body>') + 6:html.find('</body>')].replace(JS, '')
+    mira = cuerpo + tambien
+    cls = set(c for u in re.findall(r'class="([^"]+)"', mira) for c in u.split())
+    tags = set(re.findall(r'<([a-z0-9]+)', mira))
+    def sirve(sel):
+        cl = re.findall(r'\.([a-zA-Z0-9_-]+)', sel)
+        if cl: return all(c in cls for c in cl)
+        tg = re.findall(r'(?:^|\s|>)([a-z][a-z0-9]*)', sel.replace('#alb', ''))
+        return all(t in tags or t in ('html', 'body') for t in tg)
+    quedan = []
+    for r in _reglas(css):
+        sel = r[:r.find('{')]
+        if sel.startswith('@keyframes'):
+            if re.sub(r'@keyframes\s+', '', sel).strip() in css.replace(r, ''): quedan.append(r)
+            continue
+        if sel.startswith('@media'):
+            sub = [x for x in _reglas(r[r.find('{') + 1:-1]) if any(sirve(p.strip()) for p in x[:x.find('{')].split(','))]
+            if sub: quedan.append(sel + '{' + ''.join(sub) + '}')
+            continue
+        ps = [p.strip() for p in sel.split(',') if sirve(p.strip())]
+        if ps: quedan.append(','.join(ps) + r[r.find('{'):])
+    css = '\n'.join(quedan).replace('html,body{margin:0;background:#F6F2EA}', 'html,body{margin:0;background:#F6F2EA!important}')
+    cab = html[html.find('<link rel="preconnect"'):html.find('<style>')]
+    return f'{cab}<style>{css}</style>{cuerpo}'
+
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else 'src'
     os.makedirs(out, exist_ok=True)
     for nombre, f in [('ani-libro-landing', landing), ('ani-libro-pago-encabezado', pago), ('ani-libro-sesion', sesion),
                       ('ani-libro-sesion-pie', sesion_pie), ('ani-libro-agenda', agenda), ('ani-libro-gracias', gracias)]:
         open(os.path.join(out, nombre + '.html'), 'w').write(f())
+    # Bloques para pegar en GHL (pago y sesión llevan el formulario de pedido nativo de GHL debajo).
+    ghl = os.path.join(out, '..', 'ghl')
+    os.makedirs(ghl, exist_ok=True)
+    for nombre, txt in [('ani-libro-pago-encabezado', bloque(pago())), ('ani-libro-sesion', bloque(sesion(), sesion_pie())),
+                        ('ani-libro-sesion-pie', sesion_pie())]:
+        open(os.path.join(ghl, nombre + '.html'), 'w').write(txt)
     print('ok')
