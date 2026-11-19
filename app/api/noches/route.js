@@ -1,51 +1,52 @@
-// «Ani te escribe cada noche»: la casilla del libro «Vuelve a dormir».
-// Vercel la corre una vez por día a las 21 h de Ecuador (vercel.json · 02:00 UTC).
-// Busca en GHL los contactos con la etiqueta low-casilla, les manda la noche que sigue
-// (campo «Libro · noche» + 1) y guarda el número. En la 84 suma la etiqueta low-casilla-fin.
-// Necesita GHL_TOKEN (integración privada de la subcuenta de Ani: contacts.readonly, contacts.write,
-// conversations/message.write). Sin GHL_TOKEN no hace nada.
+// Libro «Vuelve a dormir»: los correos que salen solos, una vez por día a las 21 h de Ecuador
+// (vercel.json · 02:00 UTC).
+// 1 · «Ani te escribe cada noche»: contactos con la etiqueta low-casilla. Les manda la noche que sigue
+//     (campo «Libro · noche» + 1) y guarda el número. En la 84 suma la etiqueta low-casilla-fin.
+// 2 · Secuencia de 10 días: contactos con low-libro que no tomaron la casilla. Correos los días 1, 3, 6 y 10
+//     desde la compra (campo «Libro · comprado»). Se corta si compra la sesión, agenda o entra al Círculo.
+// Necesita GHL_TOKEN (ver lib/libro-ghl.js). Sin GHL_TOKEN no hace nada.
 import NOCHES from "@/lib/libro-noches.json";
+import CORREOS from "@/lib/libro-correos.json";
+import { hayToken, buscarPorTag, numero, campo, guardar, etiquetar, enviar, diasDesde, CAMPOS } from "@/lib/libro-ghl";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
 
-const API = "https://services.leadconnectorhq.com";
-const LOC = process.env.GHL_LOCATION || "yPUoxthajqalLogz3Kyi";
-const CAMPO = process.env.GHL_CAMPO_NOCHE || "z8KXtVVjo3TUpim0WtKE";
-const TAG = "low-casilla";
+const CORTAN = ["low-casilla", "low-sesion", "low-secuencia-fin"];
+const corta = (tags = []) => tags.some((t) => CORTAN.includes(t) || /circulo|agend/i.test(t));
 
-function cab(version) {
-  return { Authorization: `Bearer ${process.env.GHL_TOKEN}`, Version: version, "Content-Type": "application/json", Accept: "application/json" };
-}
-
-async function contactos() {
-  const todos = [];
-  let page = 1;
-  for (;;) {
-    const r = await fetch(`${API}/contacts/search`, {
-      method: "POST", headers: cab("2021-07-28"),
-      body: JSON.stringify({ locationId: LOC, page, pageLimit: 100, filters: [{ field: "tags", operator: "contains", value: TAG }] }),
-    });
-    if (!r.ok) throw new Error(`search ${r.status}`);
-    const j = await r.json();
-    const lote = j.contacts || [];
-    todos.push(...lote);
-    if (lote.length < 100) break;
-    page += 1;
+async function casilla() {
+  const hecho = [];
+  for (const c of await buscarPorTag("low-casilla")) {
+    if ((c.tags || []).includes("low-casilla-fin")) continue;
+    const n = numero(c, CAMPOS.noche) + 1;
+    const correo = NOCHES.find((x) => x.n === n);
+    if (!correo || !c.email) continue;
+    const r = await enviar(c, correo.asunto, correo.html);
+    if (!r.ok) { hecho.push({ id: c.id, n, ok: false, status: r.status }); continue; }
+    await guardar(c.id, { noche: n });
+    if (n >= 84) await etiquetar(c.id, ["low-casilla-fin"]);
+    hecho.push({ id: c.id, n, ok: true });
   }
-  return todos;
+  return hecho;
 }
 
-function nocheDe(c) {
-  const f = (c.customFields || []).find((x) => x.id === CAMPO);
-  const v = parseInt(f?.value ?? f?.fieldValue ?? "0", 10);
-  return Number.isFinite(v) ? v : 0;
-}
-
-function conNombre(html, c) {
-  const nombre = (c.firstName || c.firstNameLowerCase || "").trim();
-  const n = nombre ? nombre.charAt(0).toUpperCase() + nombre.slice(1) : "";
-  return html.replace("Hola {{contact.first_name}}:", n ? `Hola ${n}:` : "Hola:");
+async function secuencia() {
+  const hecho = [];
+  for (const c of await buscarPorTag("low-libro")) {
+    if (corta(c.tags) || !c.email) continue;
+    const dias = diasDesde(campo(c, CAMPOS.comprado));
+    if (dias === null) continue;
+    const i = numero(c, CAMPOS.secuencia);
+    const correo = CORREOS.secuencia[i];
+    if (!correo || dias < correo.dia) continue;
+    const r = await enviar(c, correo.asunto, correo.html);
+    if (!r.ok) { hecho.push({ id: c.id, dia: correo.dia, ok: false, status: r.status }); continue; }
+    await guardar(c.id, { secuencia: i + 1 });
+    if (i + 1 >= CORREOS.secuencia.length) await etiquetar(c.id, ["low-secuencia-fin"]);
+    hecho.push({ id: c.id, dia: correo.dia, ok: true });
+  }
+  return hecho;
 }
 
 export async function GET(req) {
@@ -53,28 +54,12 @@ export async function GET(req) {
   if (secreto && req.headers.get("authorization") !== `Bearer ${secreto}`) {
     return Response.json({ ok: false }, { status: 401 });
   }
-  if (!process.env.GHL_TOKEN) return Response.json({ ok: true, enviados: 0, motivo: "sin GHL_TOKEN" });
-
-  const lista = await contactos();
-  const hecho = [];
-  for (const c of lista) {
-    if ((c.tags || []).includes("low-casilla-fin")) continue;
-    const n = nocheDe(c) + 1;
-    const correo = NOCHES.find((x) => x.n === n);
-    if (!correo || !c.email) continue;
-    const r = await fetch(`${API}/conversations/messages`, {
-      method: "POST", headers: cab("2021-04-15"),
-      body: JSON.stringify({ type: "Email", contactId: c.id, subject: correo.asunto, html: conNombre(correo.html, c), emailFrom: process.env.GHL_REMITENTE || undefined }),
-    });
-    if (!r.ok) { hecho.push({ id: c.id, n, ok: false, status: r.status }); continue; }
-    await fetch(`${API}/contacts/${c.id}`, {
-      method: "PUT", headers: cab("2021-07-28"),
-      body: JSON.stringify({ customFields: [{ id: CAMPO, field_value: n }] }),
-    });
-    if (n >= 84) {
-      await fetch(`${API}/contacts/${c.id}/tags`, { method: "POST", headers: cab("2021-07-28"), body: JSON.stringify({ tags: ["low-casilla-fin"] }) });
-    }
-    hecho.push({ id: c.id, n, ok: true });
-  }
-  return Response.json({ ok: true, contactos: lista.length, enviados: hecho.filter((x) => x.ok).length, detalle: hecho });
+  if (!hayToken()) return Response.json({ ok: true, enviados: 0, motivo: "sin GHL_TOKEN" });
+  const noches = await casilla();
+  const sec = await secuencia();
+  return Response.json({
+    ok: true,
+    noches: { enviados: noches.filter((x) => x.ok).length, detalle: noches },
+    secuencia: { enviados: sec.filter((x) => x.ok).length, detalle: sec },
+  });
 }

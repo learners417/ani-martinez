@@ -187,4 +187,7 @@ if __name__ == '__main__':
     for c in noches:
         md.append(f"- {c['asunto']}")
     open('correos/correos.md', 'w').write('\n'.join(md))
+    # lo que lee la app (Vercel): entrega y secuencia al comprar, y las 84 noches del cron
+    json.dump({'entrega': ENTREGA, 'secuencia': SECUENCIA}, open('../lib/libro-correos.json', 'w'), ensure_ascii=False)
+    json.dump([{'n': c['n'], 'asunto': c['asunto'], 'html': c['html']} for c in noches], open('../lib/libro-noches.json', 'w'), ensure_ascii=False)
     print(len(noches), 'noches')
