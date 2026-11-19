@@ -61,7 +61,8 @@ function Estacion() {
         <h1 className="mt">Completaste esta estación.</h1>
         <p className="bajada mt">{n < 5 ? "La siguiente ya está abierta." : "Te queda tu radiografía de salida."}</p>
         <Link className="boton mt2" href="/">Ver mi siguiente paso</Link>
-        <button className="boton claro" onClick={() => setI(0)}>Repasar esta estación</button>
+        <a className="boton claro" href={ANI.circuloUrl} target="_blank" rel="noreferrer">Contarlo en El Círculo</a>
+        <button className="nota" style={{ display: "block", margin: "18px auto 0" }} onClick={() => setI(0)}>Repasar esta estación</button>
       </div>
     );
 

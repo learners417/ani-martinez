@@ -22,3 +22,9 @@ export const IcoCalendario = () => (
 export const IcoFlecha = () => (
   <svg {...base}><path d="M5 12h14m-5-5 5 5-5 5" /></svg>
 );
+export const IcoCirculo = () => (
+  <svg {...base}><circle cx="12" cy="12" r="9" /><circle cx="12" cy="6.2" r="1.2" /><circle cx="17" cy="14.9" r="1.2" /><circle cx="7" cy="14.9" r="1.2" /></svg>
+);
+export const IcoSalir = () => (
+  <svg {...base}><path d="M14 5h5v5M19 5l-8 8" /><path d="M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" /></svg>
+);

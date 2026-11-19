@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import { Llama } from "./Kit";
 
 const ITEMS = [
-  { href: "/", label: "Hoy", match: (p) => p === "/" },
+  { href: "/", label: "Hoy", match: (p) => p === "/" || p.startsWith("/herramientas") },
   { href: "/camino", label: "Camino", match: (p) => /^\/(camino|estacion|radiografia|graduacion)/.test(p) },
-  { href: "/herramientas", label: "Herramientas", match: (p) => p.startsWith("/herramientas") },
+  { href: "/comunidad", label: "Círculo", match: (p) => p.startsWith("/comunidad") },
 ];
 
 export default function Nav() {

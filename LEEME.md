@@ -43,3 +43,10 @@ pacto → radiografía de entrada → 5 estaciones T·A·M·Í·M (una sesión 1
    → guardar `url` de la respuesta en el campo `acceso_tamim` → Email con ese link.
 5. (Opcional) GHL → workflow con trigger Inbound Webhook → Send Email a Ani → pegar la URL en `GHL_PRESESION_WEBHOOK`.
 6. Prueba: alta con tu email → abrir el link en el teléfono → recorrer hasta la estación 1.
+
+## Comunidad (GHL) y app, conectadas
+
+- Los 3 links de comunidad están en `lib/contenido.js` → `ANI.circuloUrl`, `siembraUrl`, `amanecerUrl`.
+- La app lleva a El Círculo desde: la bienvenida (paso 3), Hoy, la pestaña Círculo y al completar cada estación. La Siembra se abre al graduarse.
+- App → GHL: cada hito (`pacto`, `estacion-1…5`, `mitad`, `graduada`) sale por `/api/hito` al webhook de la variable `GHL_HITOS_WEBHOOK` (workflow «App · Hitos del camino», trigger Inbound Webhook). Body: `{ email, nombre, hito, etiqueta, fecha }`. Sin la variable, no envía nada y la app funciona igual.
+- GHL → app: el workflow de bienvenida llama a `/api/alta` y manda el link personal que devuelve.

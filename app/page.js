@@ -8,7 +8,7 @@ import { hoyISO, saludo, vibrar, cuentaRegresiva, fechaLarga, descargarICS } fro
 import Protegida from "@/components/Protegida";
 import Marca from "@/components/Marca";
 import Video from "@/components/Video";
-import { IcoCalendario, IcoFlecha, IcoLuna } from "@/components/Iconos";
+import { IcoCalendario, IcoCirculo, IcoFlecha, IcoLuna, IcoRespirar, IcoSalir } from "@/components/Iconos";
 import { Arco, Llama } from "@/components/Kit";
 
 /* ── Onboarding: bienvenida → instalar → pacto ───────────── */
@@ -20,7 +20,7 @@ function Onboarding() {
   const nombre = (sesion?.nombre || "").split(" ")[0];
 
   const barra = (
-    <div className="pasos">{[0, 1, 2].map((i) => <span key={i} className={i < paso ? "si" : i === paso ? "ahora" : ""} />)}</div>
+    <div className="pasos">{[0, 1, 2, 3].map((i) => <span key={i} className={i < paso ? "si" : i === paso ? "ahora" : ""} />)}</div>
   );
 
   if (paso === 0)
@@ -54,9 +54,26 @@ function Onboarding() {
       </div>
     );
 
+  if (paso === 2)
+    return (
+      <div key="p2" className="contar">
+        {barra}
+        <p className="versalita mt">Tu grupo</p>
+        <h1 className="mt">Entra a <em>El Círculo</em>.</h1>
+        <p className="bajada mt">Ahí están Ani y las mujeres que caminan contigo. Preséntate con una línea.</p>
+        <div className="tarjeta">
+          <p style={{ fontSize: 20 }}>Esta app es <em>tu camino privado</em>: tu paso de cada día.</p>
+          <hr className="filete" />
+          <p style={{ fontSize: 20 }}>El Círculo es <em>tu grupo</em>: avisos, encuentros en vivo y tus avances.</p>
+        </div>
+        <a className="boton mt2" href={ANI.circuloUrl} target="_blank" rel="noreferrer" onClick={() => vibrar()}>Entrar a El Círculo <IcoSalir /></a>
+        <button className="boton claro" onClick={() => { vibrar(); setPaso(3); }}>Ya entré, sigo</button>
+      </div>
+    );
+
   const todo = marcas.every(Boolean) && firma.trim().length > 2;
   return (
-    <div key="p2" className="contar">
+    <div key="p3" className="contar">
       {barra}
       <p className="versalita mt">Tu pacto</p>
       <h1 className="mt">Esto es lo que te comprometes a hacer.</h1>
@@ -238,10 +255,9 @@ function Hoy() {
   return (
     <main className="pantalla">
       <Marca derecha={<span className="versalita">Semana {semana} de {SEMANAS_TOTALES}</span>} />
-      <Arco className="arco arco-hero" />
-      <div className="centro" style={{ position: "relative" }}>
+      <div className="centro saludo">
         <p className="versalita">{saludo()}</p>
-        <h1 className="mt" style={{ fontSize: 64 }}>{nombre || "Hola"}<em>.</em></h1>
+        <h1 className="mt">{nombre || "Hola"}<em>.</em></h1>
       </div>
 
       {deNoche && (
@@ -268,18 +284,23 @@ function Hoy() {
       <Siguiente paso={paso} />
       <ProximaSesion />
 
+      <Link href="/comunidad" className="herramienta">
+        <span className="ico"><IcoCirculo /></span>
+        <span><span className="tit">El Círculo</span><br /><span className="sub">Tu grupo, los avisos de Ani y los vivos</span></span>
+      </Link>
+
+      <Link href="/herramientas" className="herramienta">
+        <span className="ico"><IcoRespirar /></span>
+        <span><span className="tit">Herramientas</span><br /><span className="sub">Respirar, soltar la mente y dormir mejor</span></span>
+      </Link>
+
       <div className="tarjeta quieta">
         <Llama alto={22} />
         <p className="cita mt">“{PALABRA_ANCLA.texto}”</p>
         <p className="versalita mt">{PALABRA_ANCLA.cita}</p>
       </div>
 
-      {!deNoche && (
-        <Link href="/compania?modo=3am" className="herramienta">
-          <span className="ico"><IcoLuna /></span>
-          <span><span className="tit">Modo 3 de la mañana</span><br /><span className="sub">Para cuando no puedes dormir</span></span>
-        </Link>
-      )}
+
     </main>
   );
 }
