@@ -10,16 +10,15 @@ import Marca from "@/components/Marca";
 
 function Hito({ titulo, cuando, hecho, href }) {
   return (
-    <Link href={href} className="fila" style={{ textDecoration: "none", padding: "14px 0 14px 70px", color: "var(--tinta-2)" }}>
-      <span className="versalita" style={{ color: hecho ? "var(--oro)" : "var(--tinta-2)" }}>
-        {hecho ? "✓ " : ""}{titulo} · {cuando}
-      </span>
+    <Link href={href} className={`hito ${hecho ? "hecho" : ""}`}>
+      <span className="marca-hito" />
+      <span style={{ fontSize: 18, color: "var(--tinta-2)" }}>{titulo} <em>· {cuando}</em></span>
     </Link>
   );
 }
 
 function Camino() {
-  const { estado } = useTamim();
+  const { estado, sesion } = useTamim();
   const r = estado.radiografias || {};
   const sueno = resumenSueno(estado);
   return (
@@ -47,7 +46,7 @@ function Camino() {
               >
                 <span className={`letra ${hecha ? "hecha" : abierta ? "actual" : ""}`} style={{ flex: "none" }}>{e.letra}</span>
                 <span>
-                  <span className="versalita">{e.semanas}</span>{e.ejemplo && <span className="chip">Ejemplo</span>}
+                  <span className="versalita">{e.semanas}</span>{sesion?.demo && e.ejemplo && <span className="chip">Ejemplo</span>}
                   <br />
                   <span style={{ fontFamily: "var(--serif)", fontSize: 24, lineHeight: 1.15 }}>{e.tema}</span>
                   <br />

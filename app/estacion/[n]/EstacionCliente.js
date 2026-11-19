@@ -14,8 +14,8 @@ import Dictado from "@/components/Dictado";
 import { Arco } from "@/components/Kit";
 
 // Una idea por pantalla: clase → 3 ejercicios → audio → preguntas para Ani → sesión.
-const PANTALLAS = ["clase", "ej0", "ej1", "ej2", "audio", "pre", "sesion"];
-const NOMBRES = { clase: "La clase", ej0: "Ejercicio 1", ej1: "Ejercicio 2", ej2: "Ejercicio 3", audio: "Audio", pre: "Para Ani", sesion: "Sesión" };
+const TODAS = ["clase", "ej0", "ej1", "ej2", "audio", "pre", "sesion"];
+const NOMBRES = { clase: "Inicio", ej0: "Ejercicio 1", ej1: "Ejercicio 2", ej2: "Ejercicio 3", audio: "Audio", pre: "Para Ani", sesion: "Sesión" };
 
 const completa = (p, k) => {
   if (k === "clase") return Boolean(p.claseVista);
@@ -31,6 +31,9 @@ function Estacion() {
   const e = ESTACIONES.find((x) => x.n === n);
   const { estado, actualizar, sesion } = useTamim();
   const p = est(estado, n);
+  // El audio es una pantalla solo si esa estación tiene audio cargado.
+  const PANTALLAS = TODAS.filter((k) => k !== "audio" || e?.audioUrl);
+  const demo = Boolean(sesion?.demo);
   const inicial = useMemo(() => {
     const i = PANTALLAS.findIndex((k) => !completa(p, k));
     return i === -1 ? PANTALLAS.length - 1 : i;
@@ -79,11 +82,23 @@ function Estacion() {
   if (k === "clase") {
     cuerpo = (
       <>
-        <h2>Mira la clase</h2>
-        <p className="bajada mt">Ponte cómoda. Dale play y después sigues.</p>
-        <Video id={e.videoId} titulo={e.tema} />
+        {e.videoId ? (
+          <>
+            <h2>Mira la clase</h2>
+            <p className="bajada mt">Ponte cómoda. Dale play y después sigues.</p>
+            <Video id={e.videoId} titulo={e.tema} />
+          </>
+        ) : (
+          <>
+            <p className="versalita">De qué se trata</p>
+            <h2 className="mt">{e.tema}</h2>
+            <p className="bajada mt">{e.bajada}</p>
+            <hr className="filete" />
+            <p style={{ fontSize: 20 }}>Tres ejercicios en tu cuaderno, tus 3 preguntas para Ani y tu sesión con ella.</p>
+          </>
+        )}
         {!p.claseVista && (
-          <button className="boton mt2" onClick={() => { set((x) => ({ ...x, claseVista: true })); avanzar(); }}>Ya la vi</button>
+          <button className="boton mt2" onClick={() => { set((x) => ({ ...x, claseVista: true })); avanzar(); }}>{e.videoId ? "Ya la vi" : "Empezar"}</button>
         )}
       </>
     );
@@ -158,7 +173,7 @@ function Estacion() {
       <>
         <h2>Tu sesión {n} con Ani</h2>
         <p className="bajada mt">Llega 5 minutos antes, con agua y en un lugar donde puedas hablar tranquila.</p>
-        {ANI.agendaUrl && <a className="boton claro mt2" href={ANI.agendaUrl} target="_blank" rel="noreferrer">Agendar o ver mi sesión</a>}
+        {ANI.agendaUrl && <a className="boton claro mt2" href={ANI.agendaUrl} target="_blank" rel="noreferrer">Agendar mi sesión</a>}
         <button className={`check mt ${p.sesion ? "si" : ""}`} onClick={() => { vibrar(); set((x) => ({ ...x, sesion: !x.sesion })); }}>
           <span className="caja" /> <span>Ya tuve mi sesión {n} con Ani</span>
         </button>
@@ -168,7 +183,7 @@ function Estacion() {
 
   return (
     <>
-      <p className="versalita">Estación {e.letra} · {e.semanas} {e.ejemplo && <span className="chip">Ejemplo</span>}</p>
+      <p className="versalita">Estación {e.letra} · {e.semanas} {demo && e.ejemplo && <span className="chip">Ejemplo</span>}</p>
       <p style={{ fontFamily: "var(--serif)", fontSize: 24, marginTop: 6, lineHeight: 1.2 }}>{e.tema}</p>
       <div className="pasos">
         {PANTALLAS.map((x, j) => (
@@ -179,12 +194,12 @@ function Estacion() {
 
       <section key={k} className="tarjeta contar">{cuerpo}</section>
 
-      <div className="fila mt2" style={{ gap: 12 }}>
+      {!(k === "clase" && !p.claseVista) && <div className="fila mt2" style={{ gap: 12 }}>
         {i > 0 && <button className="boton claro" style={{ flex: 1, marginTop: 0 }} onClick={() => { vibrar(); setI(i - 1); }}>Atrás</button>}
         <button className="boton" style={{ flex: 2, marginTop: 0 }} disabled={!puedeSeguir} onClick={avanzar}>
           {i === PANTALLAS.length - 1 ? "Terminar estación" : "Siguiente"}
         </button>
-      </div>
+      </div>}
     </>
   );
 }

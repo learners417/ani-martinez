@@ -30,9 +30,9 @@ function Onboarding() {
         <Arco conLlama className="arco mt" />
         <p className="versalita mt">Bienvenida</p>
         <h1 className="mt">{nombre ? `${nombre}, ` : ""}empieza tu <em>restauración</em>.</h1>
-        <p className="bajada mt">10 semanas. 5 sesiones conmigo. Un paso por día.</p>
+        <p className="bajada mt">10 semanas. 5 sesiones conmigo, una cada dos semanas. Un paso por día.</p>
         <Video id={ANI.videoBienvenida} titulo="Bienvenida" />
-        <button className="boton mt2" onClick={() => { vibrar(); setPaso(1); }}>Ya lo vi, sigo</button>
+        <button className="boton mt2" onClick={() => { vibrar(); setPaso(1); }}>{ANI.videoBienvenida ? "Ya lo vi, sigo" : "Empezar"}</button>
       </div>
     );
 
@@ -161,6 +161,7 @@ function ProximaSesion() {
   const { estado, actualizar, sesion } = useTamim();
   const [editar, setEditar] = useState(false);
   const [valor, setValor] = useState("");
+  const [anotar, setAnotar] = useState(false);
   const [, forzar] = useState(0);
   useEffect(() => { const t = setInterval(() => forzar((x) => x + 1), 60000); return () => clearInterval(t); }, []);
   const iso = estado.proximaSesion;
@@ -170,16 +171,23 @@ function ProximaSesion() {
     return (
       <div className="tarjeta">
         <div className="fila"><span style={{ color: "var(--oro)" }}><IcoCalendario /></span><p className="versalita">Tu próxima sesión</p></div>
-        <h3 className="mt" style={{ fontSize: 26 }}>¿Cuándo te ve Ani?</h3>
-        <input className="mt" type="datetime-local" value={valor} onChange={(e) => setValor(e.target.value)} />
-        <button
-          className="boton mt"
-          disabled={!valor}
-          onClick={() => { vibrar(); actualizar((s) => ({ ...s, proximaSesion: new Date(valor).toISOString() })); setEditar(false); }}
-        >
-          Guardar
-        </button>
-        {ANI.agendaUrl && <a className="boton claro" href={ANI.agendaUrl} target="_blank" rel="noreferrer">Todavía no agendé</a>}
+        <h3 className="mt" style={{ fontSize: 30 }}>Agenda tu sesión con Ani</h3>
+        {ANI.agendaUrl && !anotar && <a className="boton mt2" href={ANI.agendaUrl} target="_blank" rel="noreferrer">Elegir día y hora <IcoSalir /></a>}
+        {!anotar && ANI.agendaUrl ? (
+          <button className="enlace" onClick={() => setAnotar(true)}>Ya la agendé: anotar la fecha</button>
+        ) : (
+          <>
+            <p className="mt2" style={{ fontSize: 19 }}>Anota el día y la hora. Te muestro cuánto falta.</p>
+            <input className="mt" type="datetime-local" value={valor} onChange={(e) => setValor(e.target.value)} />
+            <button
+              className="boton mt"
+              disabled={!valor}
+              onClick={() => { vibrar(); actualizar((s) => ({ ...s, proximaSesion: new Date(valor).toISOString() })); setEditar(false); setAnotar(false); }}
+            >
+              Guardar la fecha
+            </button>
+          </>
+        )}
       </div>
     );
 
@@ -187,7 +195,7 @@ function ProximaSesion() {
     <div className="tarjeta">
       <div className="fila" style={{ justifyContent: "space-between" }}>
         <div className="fila"><span style={{ color: "var(--oro)" }}><IcoCalendario /></span><p className="versalita">Tu sesión con Ani</p></div>
-        <button className="nota" style={{ marginTop: 0 }} onClick={() => setEditar(true)}>Cambiar</button>
+        <button className="nota" style={{ marginTop: 0 }} onClick={() => { setEditar(true); setAnotar(true); }}>Cambiar</button>
       </div>
       <p className="grande mt">{cuenta}</p>
       <p className="bajada mt">{fechaLarga(iso).replace(/^./, (c) => c.toUpperCase())}</p>
@@ -203,7 +211,7 @@ function ProximaSesion() {
 
 /* ── El paso de hoy ──────────────────────────────────────── */
 function Siguiente({ paso }) {
-  const { estado } = useTamim();
+  const { estado, sesion } = useTamim();
   let sobre, titulo, bajada, href, cta;
   if (paso.tipo === "radiografia") {
     const m = MEDICIONES[paso.medicion];
@@ -218,7 +226,7 @@ function Siguiente({ paso }) {
     titulo = e.tema;
     bajada =
       listos < 3 ? `Clase y ejercicios · ${listos} de 3 listos`
-      : !p.audio ? "Escucha tu audio guiado"
+      : e.audioUrl && !p.audio ? "Escucha tu audio guiado"
       : !p.preEnviada ? "Responde tus 3 preguntas para Ani"
       : "Ten tu sesión con Ani";
     href = `/estacion/${e.n}`; cta = "Seguir";
@@ -226,7 +234,7 @@ function Siguiente({ paso }) {
   return (
     <div className="tarjeta" style={{ borderColor: "var(--oro)", padding: "30px 24px" }}>
       <p className="versalita">Tu paso de hoy</p>
-      <p className="nota" style={{ marginTop: 6 }}>{sobre} {paso.tipo === "estacion" && ESTACIONES[paso.n - 1].ejemplo && <span className="chip">Ejemplo</span>}</p>
+      <p className="nota" style={{ marginTop: 6 }}>{sobre} {sesion?.demo && paso.tipo === "estacion" && ESTACIONES[paso.n - 1].ejemplo && <span className="chip">Ejemplo</span>}</p>
       <h2 className="mt">{titulo}</h2>
       <p className="bajada mt">{bajada}</p>
       <Link className="boton mt2" href={href}>{cta} <IcoFlecha /></Link>
@@ -248,6 +256,9 @@ function Hoy() {
   const pct = porcentaje(estado);
   const dias = racha(estado);
   const actual = paso.tipo === "estacion" ? paso.n : 0;
+  // Estación que se muestra en el resumen, también mientras toca una radiografía.
+  const enCurso = actual || (paso.tipo === "radiografia" ? { entrada: 1, mitad: 3, salida: 5 }[paso.medicion] : 5);
+  const terminado = paso.tipo === "graduacion";
   const nombre = (sesion?.nombre || "").split(" ")[0];
   const h = new Date().getHours();
   const deNoche = h >= 22 || h < 6;
@@ -266,12 +277,6 @@ function Hoy() {
         </Link>
       )}
 
-      <div className="grid3 mt2">
-        <div className="mini"><div className="numero">{dias}</div><div className="etq">{dias === 1 ? "día presente" : "días presente"}</div></div>
-        <div className="mini"><div className="numero">{actual ? ESTACIONES[actual - 1].letra : "✓"}</div><div className="etq">estación {actual || "–"} de 5</div></div>
-        <div className="mini"><div className="numero">{pct}%</div><div className="etq">de tu camino</div></div>
-      </div>
-
       <div className="estaciones">
         {ESTACIONES.map((e) => (
           <Link key={e.n} href={`/estacion/${e.n}`} className={`letra ${estacionHecha(estado, e.n) ? "hecha" : ""} ${actual === e.n ? "actual" : ""}`}>
@@ -280,9 +285,16 @@ function Hoy() {
         ))}
       </div>
 
-      <CheckIn />
       <Siguiente paso={paso} />
+      <CheckIn />
       <ProximaSesion />
+
+      <div className="grid3 mt2">
+        <div className="mini"><div className="numero">{dias}</div><div className="etq">{dias === 1 ? "día presente" : "días presente"}</div></div>
+        <div className="mini"><div className="numero">{terminado ? "✓" : ESTACIONES[enCurso - 1].letra}</div><div className="etq">{terminado ? "5 de 5 estaciones" : `estación ${enCurso} de 5`}</div></div>
+        <div className="mini"><div className="numero">{pct}%</div><div className="etq">de tu camino</div></div>
+      </div>
+
 
       <Link href="/comunidad" className="herramienta">
         <span className="ico"><IcoCirculo /></span>
@@ -306,8 +318,10 @@ function Hoy() {
 }
 
 export default function Page() {
+  const { estado } = useTamim();
+  // Durante la bienvenida no hay barra de abajo: un solo camino hasta firmar el pacto.
   return (
-    <Protegida>
+    <Protegida sinNav={!estado.pacto}>
       <Hoy />
     </Protegida>
   );

@@ -87,9 +87,87 @@ function Ficha({ c }) {
   );
 }
 
+// Dar acceso: nombre + correo → link personal listo para enviar.
+function DarAcceso({ clave, alCrear }) {
+  const [abierto, setAbierto] = useState(false);
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [link, setLink] = useState(null);
+  const [error, setError] = useState("");
+  const [copiado, setCopiado] = useState(false);
+  const [creando, setCreando] = useState(false);
+
+  const crear = async () => {
+    setError(""); setCreando(true);
+    const r = await fetch("/api/panel", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-panel-key": clave },
+      body: JSON.stringify({ nombre, email }),
+    }).catch(() => null);
+    const d = r ? await r.json() : { error: "Sin conexión" };
+    setCreando(false);
+    if (d.error) return setError(d.error);
+    setLink(d); alCrear?.();
+  };
+  const mensaje = link ? `Hola ${link.nombre.split(" ")[0]}, este es tu acceso personal a la app de El Círculo. Ábrelo desde tu teléfono:\n${link.url}` : "";
+  const copiar = async () => {
+    try { await navigator.clipboard.writeText(link.url); setCopiado(true); setTimeout(() => setCopiado(false), 2500); } catch {}
+  };
+
+  if (!abierto) return <button className="boton mt2" onClick={() => setAbierto(true)}>Dar acceso a una consultante</button>;
+  return (
+    <div className="tarjeta" style={{ borderColor: "var(--oro)" }}>
+      <p className="versalita">Nuevo acceso</p>
+      {!link ? (
+        <>
+          <p className="mt2">Nombre y apellido</p>
+          <input className="mt" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+          <p className="mt2">Correo (el mismo de la comunidad)</p>
+          <input className="mt" type="text" inputMode="email" autoCapitalize="none" value={email} onChange={(e) => setEmail(e.target.value)} />
+          {error && <p className="nota" style={{ color: "var(--rojo)" }}>{error}</p>}
+          <button className="boton mt2" disabled={!nombre.trim() || !email.trim() || creando} onClick={crear}>{creando ? "Creando…" : "Crear su link"}</button>
+          <button className="boton claro" onClick={() => setAbierto(false)}>Cancelar</button>
+        </>
+      ) : (
+        <>
+          <h3 className="mt">Listo. Este es el link de {link.nombre.split(" ")[0]}.</h3>
+          <p className="nota" style={{ wordBreak: "break-all" }}>{link.url}</p>
+          <a className="boton mt2" href={`https://wa.me/?text=${encodeURIComponent(mensaje)}`} target="_blank" rel="noreferrer">Enviar por WhatsApp</a>
+          <button className="boton claro" onClick={copiar}>{copiado ? "Link copiado" : "Copiar el link"}</button>
+          <button className="boton claro" onClick={() => { setLink(null); setNombre(""); setEmail(""); }}>Dar otro acceso</button>
+        </>
+      )}
+    </div>
+  );
+}
+
+const CONEXIONES = [
+  ["accesos", "Links personales"],
+  ["base", "Guardado del avance (Supabase)"],
+  ["ia", "Compañía con IA"],
+  ["altaGHL", "Alta automática desde GHL"],
+  ["hitosGHL", "Avisos de avance a GHL"],
+  ["preSesionGHL", "Preguntas previas por correo"],
+];
+function Conexiones({ c }) {
+  if (!c) return null;
+  return (
+    <div className="tarjeta quieta">
+      <p className="versalita">Qué está conectado</p>
+      {CONEXIONES.map(([k, txt]) => (
+        <p key={k} className="mt" style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+          <span>{txt}</span>
+          <span style={{ color: c[k] ? "var(--oro-profundo)" : "var(--rojo)", whiteSpace: "nowrap" }}>{c[k] ? "✓ Listo" : "Falta"}</span>
+        </p>
+      ))}
+    </div>
+  );
+}
+
 export default function Panel() {
   const [clave, setClave] = useState("");
   const [datos, setDatos] = useState(null);
+  const [conex, setConex] = useState(null);
   const [error, setError] = useState("");
 
   const cargar = async (k) => {
@@ -99,6 +177,7 @@ export default function Panel() {
     if (d.error) return setError(d.error);
     try { localStorage.setItem(K, k); } catch {}
     setDatos(d.consultantes);
+    setConex(d.conexiones || null);
   };
 
   const [ejemplo, setEjemplo] = useState(false);
@@ -130,12 +209,17 @@ export default function Panel() {
             <div className="mini"><div className="numero" style={{ color: "var(--oro)" }}>{datos.filter((c) => semaforo(c).nivel === 0).length}</div><div className="etq">al día</div></div>
             <div className="mini"><div className="numero" style={{ color: "var(--rojo)" }}>{datos.filter((c) => semaforo(c).nivel === 2).length}</div><div className="etq">necesitan tu mensaje</div></div>
           </div>
-          <p className="bajada mt2">Primero las que necesitan atención. Toca un nombre para ver todo.</p>
+          {!ejemplo && <DarAcceso clave={clave} alCrear={() => cargar(clave)} />}
+          {datos.length > 0 && <p className="bajada mt2">Primero las que necesitan atención. Toca un nombre para ver todo.</p>}
+          {!ejemplo && datos.length === 0 && <p className="bajada mt2">Todavía no hay consultantes. Dale acceso a la primera.</p>}
           {[...datos].sort((a, b) => semaforo(b).nivel - semaforo(a).nivel).map((c) => <Ficha key={c.email} c={c} />)}
           {ejemplo ? (
             <a className="boton claro mt2" href="/prueba">Volver al modo prueba</a>
           ) : (
-            <button className="boton claro mt2" onClick={() => cargar(clave)}>Actualizar</button>
+            <>
+              <button className="boton claro mt2" onClick={() => cargar(clave)}>Actualizar</button>
+              <Conexiones c={conex} />
+            </>
           )}
         </>
       )}

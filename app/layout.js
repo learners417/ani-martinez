@@ -1,4 +1,11 @@
 import { BASE } from "@/lib/base";
+// Tipografías de marca servidas desde la propia app (cargan rápido y sin depender de Google).
+import "@fontsource/cormorant-garamond/latin-300.css";
+import "@fontsource/cormorant-garamond/latin-300-italic.css";
+import "@fontsource/cormorant-garamond/latin-400.css";
+import "@fontsource/cormorant-garamond/latin-400-italic.css";
+import "@fontsource/lora/latin-400.css";
+import "@fontsource/lora/latin-400-italic.css";
 import "./globals.css";
 import { TamimProvider } from "@/lib/store";
 
@@ -15,12 +22,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lora:ital,wght@0,400;1,400&display=swap"
-        />
         <link rel="apple-touch-icon" href={`${BASE}/icono-192.png`} />
         <link rel="icon" type="image/png" href={`${BASE}/favicon.png`} />
       </head>

@@ -2,7 +2,7 @@ import { embedAudio } from "@/lib/util";
 
 export default function AudioAni({ url, titulo }) {
   const a = embedAudio(url);
-  if (!a) return <div className="video" style={{ aspectRatio: "auto", height: 90 }}><div className="vacio">Aquí va el audio de Ani</div></div>;
+  if (!a) return null;
   if (a.tipo === "audio") return <audio controls src={a.src} style={{ width: "100%", marginTop: 16 }} />;
   if (a.tipo === "iframe")
     return (

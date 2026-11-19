@@ -56,7 +56,7 @@ function Compania() {
     actualizar((s) => ({ ...s, chat: mensajes.slice(-60) }));
     setTexto("");
     setPensando(true);
-    let r = await fetch("/api/ia", {
+    let r = sesion.demo ? null : await fetch("/api/ia", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -66,7 +66,7 @@ function Compania() {
       }),
     }).then((x) => x.json()).catch(() => null);
     // En modo prueba, si la IA todavía no está conectada, responde una muestra con el tono de Ani.
-    if (sesion.demo && (!r || r.sinIA)) {
+    if (sesion.demo) {
       await new Promise((ok) => setTimeout(ok, 700));
       r = { texto: respuestaDemo(t, noche) };
     }

@@ -44,7 +44,7 @@ function Entrar() {
           <p className="versalita mt2 centro">El Círculo de Restauración</p>
           <h1 className="mt centro">Entra con tu link <em>personal</em></h1>
           <p className="bajada mt">
-            Te llegó por email cuando confirmaste tu lugar. Ábrelo desde este teléfono y entras directo, sin contraseña.
+            Ani te lo envió cuando confirmaste tu lugar. Ábrelo desde este teléfono y entras directo, sin contraseña.
           </p>
           <p className="nota mt2">¿No lo encuentras? Escríbele a Ani y te lo reenvía.</p>
         </>

@@ -50,3 +50,15 @@ pacto → radiografía de entrada → 5 estaciones T·A·M·Í·M (una sesión 1
 - La app lleva a El Círculo desde: la bienvenida (paso 3), Hoy, la pestaña Círculo y al completar cada estación. La Siembra se abre al graduarse.
 - App → GHL: cada hito (`pacto`, `estacion-1…5`, `mitad`, `graduada`) sale por `/api/hito` al webhook de la variable `GHL_HITOS_WEBHOOK` (workflow «App · Hitos del camino», trigger Inbound Webhook). Body: `{ email, nombre, hito, etiqueta, fecha }`. Sin la variable, no envía nada y la app funciona igual.
 - GHL → app: el workflow de bienvenida llama a `/api/alta` y manda el link personal que devuelve.
+
+## Dar acceso a una consultante (sin tocar GHL)
+
+1. Entrar a `/ani` con la clave del panel (`ANI_PANEL_KEY`).
+2. «Dar acceso a una consultante» → nombre y correo → «Crear su link».
+3. «Enviar por WhatsApp» o «Copiar el link». Ella lo abre en su teléfono y entra directo.
+
+Al pie del panel, «Qué está conectado» muestra qué variables faltan en Vercel. También en `/api/estado` (solo sí/no).
+
+Mínimo para dar accesos: `TAMIM_SECRET` y `ANI_PANEL_KEY`. Para que Ani vea el avance y la consultante no pierda nada al cambiar de teléfono: `SUPABASE_URL` y `SUPABASE_SERVICE_KEY` (tabla en `supabase.sql`). Para la compañía con IA: `ANTHROPIC_API_KEY`.
+
+Video, audio y cuaderno vacíos en `lib/contenido.js` no se muestran: la estación funciona igual y aparecen solos cuando se carga el link.

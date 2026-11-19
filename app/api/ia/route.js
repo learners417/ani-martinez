@@ -1,6 +1,6 @@
 // Compañía 24/7 con la voz de Ani. Modelo: Claude (Anthropic).
 import { leerToken } from "@/lib/auth";
-import { ESTACIONES } from "@/lib/contenido";
+import { ANI, ESTACIONES } from "@/lib/contenido";
 
 export const maxDuration = 60;
 
@@ -24,11 +24,11 @@ Lo que nunca haces:
 - Si menciona hacerse daño, no querer vivir, o estar en peligro: le dices con calma y claridad que llame ya a emergencias de su país (911 en Ecuador) o a alguien de confianza que esté cerca, y que le escriba a Ani. No sigues con otro tema.`;
 
 const MODO_3AM = `
-Ahora es de madrugada y no puede dormir. Responde todavía más corto y más lento. Ayúdala a bajar el cuerpo: respiración lenta (inhala 4, sostén 4, exhala 6), soltar la mandíbula y los hombros, y si ella quiere, una oración breve. No le des tareas ni le hagas pensar en el día de mañana. Invítala a escuchar el audio "Mi cuerpo descansa".`;
+Ahora es de madrugada y no puede dormir. Responde todavía más corto y más lento. Ayúdala a bajar el cuerpo: respiración lenta (inhala 4, sostén 4, exhala 6), soltar la mandíbula y los hombros, y si ella quiere, una oración breve. No le des tareas ni le hagas pensar en el día de mañana.${ANI.audio3am ? ' Invítala a escuchar el audio "Mi cuerpo descansa".' : ""}`;
 
 export async function POST(req) {
   const { token, mensajes, estacion, modo, nombre } = await req.json().catch(() => ({}));
-  if (!leerToken(token) && token !== "demo")
+  if (!leerToken(token))
     return Response.json({ texto: "Tu sesión venció. Vuelve a entrar con tu link personal." }, { status: 401 });
 
   const key = process.env.ANTHROPIC_API_KEY;
