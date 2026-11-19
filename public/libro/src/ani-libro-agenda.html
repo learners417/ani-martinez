@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Elige tu horario · sesión con Ani</title><meta name="robots" content="noindex"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet"><style>html,body{margin:0;background:#F6F2EA}
+#alb{font-variant-numeric:lining-nums;--cr:#F6F2EA;--li:#EFEADF;--pa:#FBF8F2;--ti:#242018;--no:#1A1815;--oro:#C3A878;--orp:#8C7345;--orc:#D5BE9C;--mu:#5E5547;--fi:#DCCDAE;
+ font-family:"Lora",Georgia,serif;color:var(--ti);background:var(--cr);font-size:19px;line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+#alb *{box-sizing:border-box;margin:0;padding:0}
+#alb img{display:block;max-width:100%;height:auto}
+#alb a{color:inherit}
+#alb .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+#alb .narrow{max-width:720px}
+#alb .sec{padding:78px 0}
+#alb .lino{background:var(--li)}
+#alb .noche{background:var(--no);color:var(--orc)}
+#alb .lab{display:flex;align-items:center;gap:10px;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--orp);margin-bottom:18px}
+#alb .noche .lab{color:var(--oro)}
+#alb .lab .ic{width:19px;height:19px}
+#alb h1,#alb h2,#alb .serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;font-variant-numeric:lining-nums}
+#alb h1{font-size:clamp(46px,11.5vw,82px);line-height:1;letter-spacing:-.01em}
+#alb h1 em,#alb h2 em{font-style:italic;color:var(--orp)}
+#alb h2{font-size:clamp(34px,8vw,54px);line-height:1.06;margin-bottom:22px}
+#alb .noche h2{color:#F6F2EA}
+#alb .noche h2 em{color:var(--orc)}
+#alb h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:26px;line-height:1.15}
+#alb p{margin-bottom:18px}
+#alb .lead{font-size:clamp(20px,2.6vw,23px);line-height:1.58;color:#3A332A;max-width:660px}
+#alb .noche .lead{color:#E9DDC6}
+#alb .mu{color:var(--mu)}
+#alb em{font-style:italic}
+#alb .ic{width:26px;height:26px;flex:none}
+/* barra */
+#alb .bar{display:flex;justify-content:center;align-items:center;padding:22px 22px 18px;max-width:1080px;margin:0 auto}
+#alb .bar img{height:24px;width:auto}
+#alb .bar span{display:none;font-size:14px;letter-spacing:.18em;color:var(--orp);white-space:nowrap}
+/* botón */
+#alb .cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--ti);color:#F6F2EA;text-decoration:none;font-family:"Lora",Georgia,serif;font-size:21px;line-height:1.2;
+ padding:22px 28px;border-radius:14px;width:100%;min-height:66px;text-align:center;box-shadow:0 16px 34px -18px rgba(36,32,24,.7);transition:transform .2s,background .2s;letter-spacing:.01em}
+#alb .cta:hover{background:#3A332A;transform:translateY(-2px)}
+#alb .cta .ic{width:24px;height:24px}
+#alb .noche .cta{background:#F6F2EA;color:var(--ti)}
+#alb .micro{font-size:16px;letter-spacing:.04em;color:var(--mu);margin-top:14px}
+#alb .noche .micro{color:var(--oro)}
+/* héroe */
+#alb .hero{padding:24px 0 74px}
+#alb .hgrid{display:grid;gap:40px;align-items:center}
+#alb .eyb{display:inline-block;font-size:15px;letter-spacing:.18em;color:var(--orp);border:1px solid var(--fi);border-radius:999px;padding:8px 16px;margin-bottom:22px}
+#alb .hero .lead{margin:24px 0 30px}
+#alb .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+#alb .chip{display:inline-flex;align-items:center;gap:8px;background:var(--pa);border:1px solid var(--fi);border-radius:999px;padding:9px 16px;font-size:16px}
+#alb .chip .ic{width:19px;height:19px;color:var(--orp)}
+/* libro 3D */
+#alb .bk3{--w:250px;--h:353px;--d:18px;position:relative;width:var(--w);height:var(--h);margin:10px auto 36px;perspective:1700px}
+#alb .bk{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(-26deg) rotateX(5deg);animation:albflot 7s ease-in-out infinite}
+#alb .bkf,#alb .bkb{position:absolute;inset:0;border-radius:3px 9px 9px 3px}
+#alb .bkf{background:var(--cover) center/cover no-repeat;transform:translateZ(calc(var(--d) / 2));box-shadow:inset 6px 0 9px -5px rgba(0,0,0,.25),0 0 0 1px #D9CBAE}
+#alb .bkf::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(105deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.22) 34%,rgba(255,255,255,0) 58%,rgba(0,0,0,.06) 100%)}
+#alb .bkb{background:#E6DCC8;transform:translateZ(calc(var(--d) / -2)) rotateY(180deg)}
+#alb .bks{position:absolute;top:0;left:calc(var(--d) / -2);width:var(--d);height:100%;transform:rotateY(-90deg);background:linear-gradient(90deg,#D9CBAE,#EFE6D3 45%,#E2D5BA)}
+#alb .bkp{position:absolute;top:4px;right:calc(var(--d) / -2);width:var(--d);height:calc(100% - 8px);transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#FFFCF6 0 2px,#E8DFCF 2px 3px)}
+#alb .bksh{position:absolute;left:8%;right:-4%;bottom:-28px;height:34px;border-radius:50%;background:radial-gradient(closest-side,rgba(80,60,25,.28),rgba(80,60,25,0));filter:blur(4px)}
+@keyframes albflot{0%,100%{translate:0 0}50%{translate:0 -8px}}
+/* escena */
+#alb .quote{background:var(--no);color:#F6F2EA;border-radius:22px;padding:36px 30px;margin:32px 0}
+#alb .quote p{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(30px,6.4vw,42px);line-height:1.12;margin-bottom:14px}
+#alb .quote span{font-size:14px;letter-spacing:.18em;color:var(--oro)}
+/* rasgos */
+#alb .feat{display:grid;gap:14px;margin:30px 0 18px}
+#alb .fi{display:flex;gap:16px;align-items:flex-start;background:var(--pa);border:1px solid var(--fi);border-radius:16px;padding:22px}
+#alb .lino .fi{background:var(--pa)}
+#alb .fi .ic{width:30px;height:30px;color:var(--orp);margin-top:2px}
+#alb .fi h3{margin-bottom:4px}
+#alb .fi p{margin:0;color:#4A4236;font-size:18px}
+/* semana */
+#alb .spread{border-radius:14px;overflow:hidden;box-shadow:0 34px 64px -30px rgba(70,50,20,.45);background:#CDBF9F;margin:8px 0 16px}
+#alb .cap{font-size:17px;color:var(--mu);text-align:center;margin-bottom:34px}
+#alb .strip{display:grid;grid-auto-flow:column;grid-auto-columns:46%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+#alb .th{scroll-snap-align:start}
+#alb .th img{border-radius:10px;box-shadow:0 14px 28px -18px rgba(70,50,20,.6);border:1px solid var(--fi)}
+#alb .th p{font-size:16px;color:var(--orp);margin:10px 0 0;text-align:center}
+/* dimensiones */
+#alb .dims{display:grid;gap:14px;margin-top:30px}
+#alb .dim{background:var(--pa);border-radius:20px;padding:24px 22px;border:1px solid var(--fi);position:relative}
+#alb .dim .n{font-family:"Cormorant Garamond",Georgia,serif;font-size:44px;line-height:1;color:var(--oro);position:absolute;right:22px;top:18px}
+#alb .dim .k{font-size:14px;letter-spacing:.16em;color:var(--orp);text-transform:uppercase;margin-bottom:6px}
+#alb .dim h3{font-size:30px;margin-bottom:8px}
+#alb .dim p{font-size:18px;line-height:1.5;margin:0;color:#4A4236}
+#alb .tres{display:block;margin:6px auto 0;width:min(340px,86%)}
+/* camino */
+#alb .path{display:grid;gap:12px;margin-top:30px}
+#alb .st{display:flex;align-items:center;gap:18px;background:var(--pa);border:1px solid var(--fi);border-radius:16px;padding:18px 20px}
+#alb .st .lt{flex:none;width:56px;height:56px;border-radius:50%;border:1px solid var(--oro);color:var(--orp);display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:30px;font-variant-numeric:lining-nums}
+#alb .st h3{font-size:25px}
+#alb .st .dd{font-size:15px;letter-spacing:.06em;color:var(--orp)}
+#alb .st p{margin:2px 0 0;font-size:17px;color:#4A4236;line-height:1.4}
+/* radiografía */
+#alb .tcard{background:var(--pa);color:var(--ti);border-radius:22px;padding:22px 16px;margin-top:30px;box-shadow:0 34px 64px -34px rgba(0,0,0,.7)}
+#alb .trow{display:grid;grid-template-columns:1fr repeat(3,56px);gap:8px;align-items:center;padding:12px 4px;border-bottom:1px dashed var(--fi)}
+#alb .trow:last-child{border-bottom:0}
+#alb .trow.h{font-size:14px;letter-spacing:.06em;color:var(--orp);text-align:center;border-bottom:1px solid var(--oro)}
+#alb .trow.h span:first-child{text-align:left}
+#alb .trow span{font-size:17px;line-height:1.3}
+#alb .trow span small{display:block;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--orp)}
+#alb .tb{height:44px;border:1px solid var(--oro);border-radius:9px;background:#fff}
+/* autora */
+#alb .agrid{display:grid;gap:30px}
+#alb .afoto{border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--li)}
+#alb .afoto img{width:100%;height:100%;object-fit:cover}
+#alb .aq{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(30px,6vw,40px);line-height:1.14;color:var(--orp)}
+#alb .sig{font-size:14px;letter-spacing:.18em;color:var(--orp);margin-top:14px}
+/* para quién */
+#alb .who{display:grid;gap:12px;margin-top:26px}
+#alb .wi{display:flex;gap:14px;align-items:flex-start;font-size:20px;line-height:1.45;background:var(--pa);border:1px solid var(--fi);border-radius:16px;padding:20px}
+#alb .wi .ic{color:var(--orp);width:28px;height:28px;margin-top:1px}
+/* oferta */
+#alb .offer{background:var(--pa);border-radius:24px;padding:32px 22px;box-shadow:0 44px 84px -44px rgba(70,50,20,.5);border:1px solid var(--fi);display:grid;gap:26px;align-items:center}
+#alb .offer .bk3{--w:190px;--h:268px;--d:14px;margin:6px auto 26px}
+#alb .ot{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(32px,6.4vw,42px);line-height:1.05}
+#alb .os{font-size:15px;letter-spacing:.12em;color:var(--orp);margin:10px 0 20px}
+#alb .inc{list-style:none;display:grid;gap:11px;margin-bottom:24px}
+#alb .inc li{display:flex;gap:12px;align-items:flex-start;font-size:18px;line-height:1.4}
+#alb .inc .ic{width:24px;height:24px;color:var(--orp)}
+#alb .price{font-family:"Cormorant Garamond",Georgia,serif;font-size:64px;line-height:1;margin-bottom:8px;font-variant-numeric:lining-nums}
+#alb .price small{font-family:"Lora",Georgia,serif;font-size:20px;color:var(--mu)}
+#alb .pnote{font-size:17px;color:var(--mu);margin-bottom:22px}
+/* preguntas */
+#alb details{background:var(--pa);border:1px solid var(--fi);border-radius:16px;padding:0 20px;margin-bottom:12px}
+#alb summary{list-style:none;cursor:pointer;font-size:20px;line-height:1.35;padding:20px 34px 20px 0;position:relative}
+#alb summary::-webkit-details-marker{display:none}
+#alb summary::after{content:"+";position:absolute;right:0;top:14px;font-size:30px;color:var(--orp)}
+#alb details[open] summary::after{content:"–"}
+#alb details p{font-size:18px;color:#4A4236;padding-bottom:20px;margin:0}
+/* cierre */
+#alb .final{text-align:center}
+#alb .final .lead{margin:0 auto 30px}
+#alb .final .arco{width:180px;margin:0 auto 26px;opacity:.9}
+#alb .foot{text-align:center;font-size:14px;letter-spacing:.12em;color:var(--mu);padding:36px 22px}
+/* páginas del recorrido */
+#alb .conf{display:flex;gap:16px;align-items:center;background:var(--pa);border:1px solid var(--fi);border-radius:22px;padding:22px 20px;margin:12px 0 30px}
+#alb .conf .ic{width:44px;height:44px;color:var(--orp)}
+#alb .conf b{display:block;font-weight:400;font-family:"Cormorant Garamond",Georgia,serif;font-size:30px;line-height:1.1}
+#alb .conf span{font-size:18px;color:var(--mu)}
+#alb .once{display:inline-block;font-size:14px;letter-spacing:.18em;background:var(--ti);color:#F6F2EA;border-radius:8px;padding:8px 14px;margin-bottom:18px}
+#alb .steps{display:grid;gap:14px;margin:28px 0}
+#alb .step{display:flex;gap:16px;align-items:flex-start;background:var(--pa);border-radius:16px;padding:20px;border:1px solid var(--fi)}
+#alb .sn{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--oro);color:var(--orp);font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;display:flex;align-items:center;justify-content:center;font-variant-numeric:lining-nums}
+#alb .step h3{font-size:24px;margin-bottom:4px}
+#alb .step p{margin:0;font-size:18px;color:#4A4236}
+#alb .acu{background:var(--no);color:#F6F2EA;border-radius:22px;padding:26px 22px;margin:8px 0 28px}
+#alb .acu .lab{color:var(--oro)}
+#alb .acu ol{list-style:none;display:grid;gap:10px;counter-reset:a}
+#alb .acu li{counter-increment:a;display:flex;gap:12px;align-items:center;border:1px solid rgba(213,190,156,.35);border-radius:12px;padding:13px 14px;font-size:18px}
+#alb .acu li::before{content:counter(a);flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--orc);color:var(--orc);display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:20px}
+#alb .cred{border:1px dashed var(--oro);border-radius:22px;padding:22px;margin-bottom:28px;background:var(--pa)}
+#alb .cred p{margin:0;font-size:19px}
+#alb .calw{background:var(--pa);border-radius:22px;border:1px solid var(--fi);padding:10px;min-height:120px}
+#alb .no{display:block;text-align:center;margin:26px 0 6px;font-size:18px;color:var(--mu);text-decoration:underline;text-underline-offset:4px}
+#alb .firma{margin-top:30px;font-family:"Cormorant Garamond",Georgia,serif;font-size:28px}
+#alb .firma span{display:block;font-family:"Lora",Georgia,serif;font-size:14px;letter-spacing:.16em;color:var(--orp);margin-top:4px}
+#alb .ph{display:flex;gap:18px;align-items:center;background:var(--pa);border:1px solid var(--fi);border-radius:22px;padding:16px 18px;margin-bottom:18px}
+#alb .ph img{width:78px;border-radius:3px 7px 7px 3px;box-shadow:0 10px 20px -10px rgba(70,50,20,.5)}
+#alb .ph b{display:block;font-weight:400;font-family:"Cormorant Garamond",Georgia,serif;font-size:27px;line-height:1.15}
+#alb .ph span{font-size:17px;color:var(--mu)}
+#alb .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+#alb .rv.in{opacity:1;transform:none}
+@media (min-width:760px){
+ #alb{font-size:20px}
+ #alb .sec{padding:108px 0}
+ #alb .hgrid{grid-template-columns:1.15fr .85fr}
+ #alb .cta{width:auto}
+ #alb .offer .cta,#alb .dl{width:100%}
+ #alb .bk3{--w:300px;--h:424px;--d:22px}
+ #alb .feat{grid-template-columns:1fr 1fr}
+ #alb .strip{grid-auto-flow:row;grid-template-columns:repeat(6,1fr);grid-auto-columns:auto;overflow:visible}
+ #alb .dims{grid-template-columns:repeat(3,1fr)}
+ #alb .path{grid-template-columns:1fr 1fr 1fr}
+ #alb .trow{grid-template-columns:1fr repeat(3,90px);padding:14px 10px}
+ #alb .tcard{padding:28px 30px}
+ #alb .agrid{grid-template-columns:.8fr 1.2fr;align-items:center}
+ #alb .who{grid-template-columns:1fr 1fr}
+ #alb .offer{grid-template-columns:.8fr 1.2fr;padding:46px}
+ #alb .steps{grid-template-columns:1fr 1fr 1fr}
+ #alb .bar{justify-content:space-between}
+ #alb .bar span{display:inline}
+}
+@media (prefers-reduced-motion:reduce){#alb .bk{animation:none}#alb .rv{opacity:1;transform:none;transition:none}}</style></head><body><div id="alb" style="--cover:url(https://ani-martinez.vercel.app/libro/img/cover.webp)"><div class="bar"><img src="https://ani-martinez.vercel.app/marca/logotipo-tinta.png" alt="Ani Martínez" width="210" height="24"><span>MÉTODO TAMÍM</span></div>
+<section style="padding:6px 0 60px"><div class="wrap narrow">
+ <div class="conf"><svg viewBox="0 0 24 24" class="ic" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12.5l3 3 5-6"/></svg><div><b>Listo, tu sesión está reservada</b><span>Ahora elige el día y la hora.</span></div></div>
+ <p class="lab"><svg viewBox="0 0 24 24" class="ic" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Elige tu horario</p>
+ <p class="lead" style="margin-bottom:24px">45 minutos por videollamada. Apenas eliges, te llega la confirmación a tu correo con el link para entrar.</p>
+ <div class="calw" id="cal"></div>
+ <p class="firma">Nos vemos pronto.<span>ANI MARTÍNEZ · MÉTODO TAMÍM</span></p>
+</div></section></div><script>(function(){var r=document.getElementById('alb');if(!r)return;var l=r.querySelectorAll('.rv');
+if(!('IntersectionObserver' in window)){l.forEach(function(e){e.classList.add('in')});return}
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+l.forEach(function(e){o.observe(e)});setTimeout(function(){l.forEach(function(e){e.classList.add('in')})},4000)})();</script><script>(function(){var ID="%%CAL%%",w=document.getElementById('cal');if(!w)return;
+var q=location.search||'';var f=document.createElement('iframe');f.src='https://api.leadconnectorhq.com/widget/booking/'+ID+q;
+f.style.cssText='width:100%;border:0;min-height:760px;border-radius:16px;background:#FBF8F2';f.setAttribute('scrolling','no');f.id=ID+'_alb';w.appendChild(f);
+var s=document.createElement('script');s.src='https://link.msgsndr.com/js/form_embed.js';document.body.appendChild(s);})();</script></body></html>
