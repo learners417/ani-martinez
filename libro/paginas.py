@@ -15,7 +15,7 @@ URL = {
  'pdf': CDN + 'libro/d/lfjc5z2sokpm/vuelve-a-dormir-12-semanas.pdf',
  'circulo': DOM + '/vsl',
 }
-CAL_ID = '%%CAL%%'
+CAL_ID = 'JdRaWLq4TpCIbHNgLGuG'
 FOTO = '%%FOTO%%'
 
 def I(k, s=24, c='currentColor', w=1.5):
@@ -432,7 +432,7 @@ def gracias():
   <div class="step"><span class="sn">3</span><div><h3>Haz tu primera invitación</h3><p>Página 21. Y marca la casilla.</p></div></div>
  </div>
  <p style="font-size:18px"><em>Si reservaste tu sesión</em>, te llega la confirmación con el link de la videollamada.</p>
- <p style="font-size:18px"><em>Si elegiste que te escriba cada noche</em>, mi primer correo te llega hoy, a las nueve de la noche.</p>
+ <p style="font-size:18px"><em>Si elegiste que te escriba cada noche</em>, mi primer correo te llega a las nueve de la noche.</p>
  <p class="firma">Nos vemos en la noche 1.<span>ANI MARTÍNEZ · MÉTODO TAMÍM</span></p>
 </div></section>
 {FOOT}'''
