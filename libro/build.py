@@ -149,7 +149,7 @@ add(pg(f'''
 {ps([
  'Cada noche tiene una invitación: algo chico para hacer en tu vida, no en la pantalla, de cinco a diez minutos. La haces y marcas la casilla.',
  'Cada semana tiene un capítulo: una historia, lo que hay debajo, tu ejercicio y tu regla. Lo lees la noche que cierra la semana. Es tu media hora con el libro.',
- 'Las noches 1, 43 y 84 haces tu radiografía: seis números, siempre los mismos. Ahí ves tu cambio, en números tuyos.',
+ 'Las noches 1, 43 y 84 haces tu radiografía: un número del 1 al 10 para tu espíritu, tu alma y tu cuerpo. Ahí ves tu cambio, en números tuyos.',
  'Si una noche no puedes, sigues la siguiente. No se empieza de nuevo el lunes.'])}
 <div class="nota-oro"><p><em>Ten a mano un cuaderno y un lápiz.</em> Escribir con la mano le da a tu cabeza un lugar donde dejar lo que da vueltas.</p></div>
 ''', pid='como'))
@@ -161,7 +161,7 @@ add(pg(f'''
 <div class="ritmos">
  <div class="ritmo"><p class="r-k">Cada noche</p><p class="r-t">Tu invitación</p><p class="r-m">5 a 10 minutos</p><p>La haces en tu vida, no en la pantalla, y marcas la casilla.</p></div>
  <div class="ritmo"><p class="r-k">Cada semana</p><p class="r-t">Tu capítulo</p><p class="r-m">30 minutos</p><p>Lees la historia, entiendes qué hay debajo y escribes tu regla.</p></div>
- <div class="ritmo"><p class="r-k">Noches 1, 43 y 84</p><p class="r-t">Tu radiografía</p><p class="r-m">5 minutos</p><p>Mides tus tres dimensiones con los mismos seis números.</p></div>
+ <div class="ritmo"><p class="r-k">Noches 1, 43 y 84</p><p class="r-t">Tu radiografía</p><p class="r-m">5 minutos</p><p>Un número del 1 al 10 para cada parte: espíritu, alma y cuerpo.</p></div>
 </div>
 <div class="arco-chico">{arco_noches(w=420, h=230)}</div>
 <p class="pie-c">Cada punto es una noche. La 84 la enciendes tú.</p>
@@ -303,19 +303,16 @@ add(pregunta_pg('¿Desde cuándo no duermes de verdad?'))
 
 # radiografía
 def radiografia_pg(noche, titulo, pid=None):
-    escala = ''.join(f'<td class="h">{i}</td>' for i in range(11))
+    escala = ''.join(f'<td class="h">{i}</td>' for i in range(1, 11))
     filas = ''
-    dim_ant = None
     for dim, item in RADIOGRAFIA:
-        d = f'<span class="rd">{dim}</span>' if dim != dim_ant else ''
-        dim_ant = dim
-        filas += f'<tr><th>{d}{e(item)}</th>' + ''.join(f'<td>{cb("cbr")}</td>' for _ in range(11)) + f'<td class="nro">{tx("txn")}</td></tr>'
+        filas += f'<tr><th><span class="rd">{dim}</span>{e(item)}</th>' + ''.join(f'<td>{cb("cbr")}</td>' for _ in range(10)) + f'<td class="nro">{tx("txn")}</td></tr>'
     return pg(f'''
 {lab(f'Tu radiografía · Noche {noche}', 'termo')}
 <h2>{titulo}</h2>
-<p>Seis números de hoy, dos por dimensión. No hay respuestas buenas ni malas: 0 es nada, 10 es lo mejor que te imaginas. Una casilla por fila, y el número a la derecha.</p>
+<p>Tres números de hoy, uno por parte: tu espíritu, tu alma y tu cuerpo. Del 1 al 10, donde 10 es lo mejor que te imaginas. Una casilla por fila, y el número a la derecha.</p>
 <table class="radio"><tr><th></th>{escala}<td class="h">N.º</td></tr>{filas}</table>
-<p class="mu">¿Cómo se lee? Si tus números de la noche 43 y de la noche 84 suben, es tu descanso volviendo.</p>''', pid=pid)
+<p class="mu">¿Cómo se lee? Pones al lado los números de la noche 1, la 43 y la 84. Lo que se movió es tu cambio, y lo ves tú.</p>''', pid=pid)
 marca_ix('Tu radiografía · Noche 1', 'radio1')
 add(radiografia_pg(1, 'Tu punto de partida', 'radio1'))
 
@@ -495,7 +492,7 @@ else:
     marca_ix('Tu transformación', 'transf')
     filas = ''
     for dim, item in RADIOGRAFIA:
-        filas += f'<tr><th>{e(item)}</th>' + ''.join(f'<td>{tx("txn")}</td>' for _ in range(3)) + '</tr>'
+        filas += f'<tr><th>{dim}</th>' + ''.join(f'<td>{tx("txn")}</td>' for _ in range(3)) + '</tr>'
     add(pg(f'''
     {lab('Tu transformación', 'termo')}
     <h2>Noche 1, noche 43, noche 84</h2>

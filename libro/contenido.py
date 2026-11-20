@@ -529,13 +529,11 @@ JUEGOS = {
 }
 
 # ---------------------------------------------------------------- Radiografía
+# Escala única del embudo (promesa final, 19 nov): un número del 1 al 10 por parte.
 RADIOGRAFIA = [
- ("Espíritu", "Paz al acostarte"),
- ("Espíritu", "Cercanía con Dios"),
- ("Alma", "Calma de tu mente de noche"),
- ("Alma", "Cómo te hablas a ti misma"),
- ("Cuerpo", "Cómo duermes"),
- ("Cuerpo", "Energía al despertar"),
+ ("Espíritu", "Tu paz y tu cercanía con Dios"),
+ ("Alma", "La calma de tu mente y cómo te hablas"),
+ ("Cuerpo", "Tu descanso y tu energía al despertar"),
 ]
 
 # ---------------------------------------------------------------- Cartas de rescate

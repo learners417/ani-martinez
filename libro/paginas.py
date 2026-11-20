@@ -244,7 +244,7 @@ def landing():
     feats = [('luna', '84 invitaciones', 'Una por noche, de 5 a 10 minutos, para hacer en tu vida real.'),
              ('libro', '12 capítulos', 'Uno por semana: una historia mía, lo que hay debajo y tu regla.'),
              ('dado', '6 juegos', 'Para entender tu noche sin culparte.'),
-             ('termo', 'Tu cambio, medido', 'Las noches 1, 43 y 84, con los mismos seis números.'),
+             ('termo', 'Tu cambio, medido', 'Un número del 1 al 10 por parte, en las noches 1, 43 y 84.'),
              ('carta', '8 cartas de rescate', 'Para tener a mano si te despiertas de madrugada.'),
              ('mesa', 'Un afiche para tu mesa de noche', 'Cuatro pasos para las tres de la mañana.')]
     feat = ''.join(f'<div class="fi rv">{I(k)}<div><h3>{t}</h3><p>{d}</p></div></div>' for k, t, d in feats)
@@ -254,12 +254,12 @@ def landing():
             ('2', 'La mente que no se apaga', 'Alma', 'Tus pensamientos, tus emociones y lo que cargas sin decir.'),
             ('3', 'El cuerpo que descansa', 'Cuerpo', 'Lo que comes, la luz que ves, la hora a la que cenas.')]
     dimh = ''.join(f'<div class="dim rv"><span class="n">{n}</span><p class="k">{k}</p><h3>{d}</h3><p>{t}</p></div>' for n, k, d, t in dims)
-    path = [('1', 'Espíritu', 'Semanas 1 a 4', 'Dejas de pelear sola con la noche.'),
-            ('2', 'Alma', 'Semanas 5 a 8', 'Dejas de fingir que estás bien.'),
-            ('3', 'Cuerpo', 'Semanas 9 a 12', 'Escuchas lo que tu cuerpo te pide.')]
+    path = [('1', 'Espíritu', 'Noches 1 a 28', 'Dejas de pelear sola con la noche.'),
+            ('2', 'Alma', 'Noches 29 a 56', 'Dejas de fingir que estás bien.'),
+            ('3', 'Cuerpo', 'Noches 57 a 84', 'Escuchas lo que tu cuerpo te pide.')]
     pathh = ''.join(f'<div class="st rv"><span class="lt">{n}</span><div><h3>{t}</h3><span class="dd">{d}</span><p>{x}</p></div></div>' for n, t, d, x in path)
-    filas = [('Espíritu', 'Paz al acostarte'), ('', 'Cercanía con Dios'), ('Alma', 'Calma de tu mente de noche'),
-             ('', 'Cómo te hablas a ti misma'), ('Cuerpo', 'Cómo duermes'), ('', 'Energía al despertar')]
+    filas = [('Espíritu', 'Tu paz y tu cercanía con Dios'), ('Alma', 'La calma de tu mente y cómo te hablas'),
+             ('Cuerpo', 'Tu descanso y tu energía al despertar')]
     trows = ''.join(f'<div class="trow"><span>{"<small>"+d+"</small>" if d else ""}{t}</span><i class="tb"></i><i class="tb"></i><i class="tb"></i></div>' for d, t in filas)
     who = ['Sostienes todo por fuera y a la noche la cabeza no se apaga.', 'Te despiertas de madrugada y te cuesta volver a dormir.',
            'Ya probaste muchas cosas y vuelves a lo de antes.', 'Quieres entender qué te pasa, a tu ritmo y con Dios en el centro.']
@@ -280,8 +280,8 @@ def landing():
     c = f'''{BAR}
 <section class="hero"><div class="wrap hgrid">
  <div><span class="eyb">LIBRO DIGITAL · 84 NOCHES</span>
-  <h1>Descubre <em>lo que no te deja dormir</em></h1>
-  <p class="lead">84 noches, una invitación chica por noche, en tu vida real, y tu cambio medido con seis números. Lo escribí para las mujeres que sostienen todo por fuera y a las tres de la mañana siguen despiertas.</p>
+  <h1>Dormir mal es la señal. <em>En 84 noches trabajas lo que está debajo.</em></h1>
+  <p class="lead">Tu espíritu, tu alma y tu cuerpo, cada uno con su número del 1 al 10. Lo mides en la noche 1, en la 43 y en la 84, con una invitación chica por noche. El cambio lo ves tú.</p>
   {CTA}<p class="micro">USD 27 · lo recibes en tu correo al instante</p>
   <div class="chips"><span class="chip">{I("luna")}84 noches</span><span class="chip">{I("libro")}12 capítulos</span><span class="chip">{I("dado")}6 juegos</span></div>
  </div>
@@ -320,14 +320,14 @@ def landing():
 
 <section class="sec lino"><div class="wrap">
  <p class="lab">{I("flecha")}El camino</p>
- <h2 class="rv">Doce semanas, tres partes</h2>
+ <h2 class="rv">84 noches, tres partes</h2>
  <div class="path">{pathh}</div>
 </div></section>
 
 <section class="sec noche"><div class="wrap narrow">
  <p class="lab">{I("termo")}Medible</p>
  <h2 class="rv">Tu cambio, en <em>números tuyos</em></h2>
- <p class="lead rv">La noche 1 haces tu radiografía: seis números del 0 al 10, dos por dimensión. La repites la noche 43 y la noche 84. No te lo cuento yo: lo ves tú.</p>
+ <p class="lead rv">La noche 1 haces tu radiografía: un número del 1 al 10 para tu espíritu, tu alma y tu cuerpo. La repites la noche 43 y la noche 84. El cambio lo ves tú.</p>
  <div class="tcard rv"><div class="trow h"><span>Tu radiografía</span><span>Noche 1</span><span>Noche 43</span><span>Noche 84</span></div>{trows}</div>
 </div></section>
 
@@ -429,7 +429,7 @@ def gracias():
  <p class="lab" style="margin-top:46px">{I("luna")}Tu noche 1, hoy</p>
  <div class="steps" style="grid-template-columns:1fr">
   <div class="step"><span class="sn">1</span><div><h3>Haz tu mapa de la noche</h3><p>Página 16. Como es hoy, no como te gustaría.</p></div></div>
-  <div class="step"><span class="sn">2</span><div><h3>Completa tu radiografía</h3><p>Página 18. Seis números, sin pensarlo mucho.</p></div></div>
+  <div class="step"><span class="sn">2</span><div><h3>Completa tu radiografía</h3><p>Página 18. Tres números del 1 al 10, sin pensarlo mucho.</p></div></div>
   <div class="step"><span class="sn">3</span><div><h3>Haz tu primera invitación</h3><p>Página 21. Y marca la casilla.</p></div></div>
  </div>
  <p style="font-size:18px"><em>Si reservaste tu sesión</em>, te llega la confirmación con el link de la videollamada.</p>
