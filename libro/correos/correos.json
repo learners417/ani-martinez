@@ -4,6 +4,11 @@
   "vista_previa": "Tu noche 1 puede ser hoy: tres pasos, diez minutos.",
   "html": "<div style=\"font-family:Georgia,serif;font-size:18px;line-height:1.65;color:#242018\"><p>Hola {{contact.first_name}}:</p><p><br></p><p>Gracias por tu compra. Aquí está tu libro:</p><p><br></p><p><a href=\"https://ani-martinez.vercel.app/libro/d/lfjc5z2sokpm/vuelve-a-dormir-12-semanas.pdf\" style=\"color:#8C7345;text-decoration:underline\">→ Descargar «Vuelve a dormir en 12 semanas»</a></p><p><br></p><p>Es un PDF que completas en la pantalla o imprimes. Si lo completas en la pantalla, guárdalo cada vez que escribas.</p><p><br></p><p><em>Tu noche 1, hoy:</em><br>1. Haz tu mapa de la noche (página 16).<br>2. Completa tu radiografía (página 18).<br>3. Haz tu primera invitación y marca la casilla (página 21).</p><p><br></p><p>Diez minutos. Esta noche no cambias nada: solo miras.</p><p><br></p><p>Ani</p></div>"
  },
+ "sesion": {
+  "asunto": "Tu sesión conmigo · elige tu horario",
+  "vista_previa": "Elige el día y la hora, y trae tu mapa de la noche.",
+  "html": "<div style=\"font-family:Georgia,serif;font-size:18px;line-height:1.65;color:#242018\"><p>Hola {{contact.first_name}}:</p><p><br></p><p>Gracias por reservar tu primera sesión conmigo. Son 45 minutos por videollamada.</p><p><br></p><p>Si todavía no elegiste el día y la hora, hazlo aquí:</p><p><br></p><p><a href=\"https://ani-martinez.com/libro-agenda\" style=\"color:#8C7345;text-decoration:underline\">→ Elige tu horario</a></p><p><br></p><p>Antes de la sesión, completa en tu libro el mapa de la noche (página 16) y tu radiografía (página 18). Respóndeme este correo con las dos cosas. Así llego sabiendo de ti.</p><p><br></p><p>Y si después quieres hacer el Círculo de Restauración conmigo, los USD 97 de esta sesión se descuentan si entras en los 7 días siguientes.</p><p><br></p><p>Ani</p></div>"
+ },
  "cada_noche": [
   {
    "n": 1,

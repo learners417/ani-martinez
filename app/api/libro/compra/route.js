@@ -5,7 +5,7 @@
 //   https://ani-martinez.vercel.app/api/libro/compra?evento=sesion&k=CLAVE
 // libro   → etiqueta low-libro, guarda la fecha y manda el correo con el libro.
 // casilla → etiqueta low-casilla y pone «Libro · noche» en 0: esa noche a las 21 h sale la noche 1.
-// sesion  → etiqueta low-sesion (corta la secuencia de 10 días).
+// sesion  → etiqueta low-sesion (corta la secuencia de 10 días) y manda el correo con el link para elegir horario.
 import CORREOS from "@/lib/libro-correos.json";
 import { hayToken, contacto, etiquetar, guardar, enviar, hoyEcuador, numero, campo, CAMPOS } from "@/lib/libro-ghl";
 
@@ -45,7 +45,8 @@ export async function POST(req) {
   }
   if (evento === "sesion") {
     await etiquetar(id, ["low-sesion"]);
-    hecho.push("low-sesion");
+    const r = await enviar(c, CORREOS.sesion.asunto, CORREOS.sesion.html);
+    hecho.push("low-sesion", r.ok ? "correo sesión" : `correo sesión falló ${r.status}`);
   }
   return Response.json({ ok: true, evento, contacto: id, hecho });
 }

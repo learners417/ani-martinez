@@ -6,6 +6,12 @@
 _Tu noche 1 puede ser hoy: tres pasos, diez minutos._
 
 
+## Sesión pagada (al pagar la sesión de USD 97)
+
+**Tu sesión conmigo · elige tu horario**  
+_Elige el día y la hora, y trae tu mapa de la noche._
+
+
 ## Secuencia de 10 días (quien no tomó la casilla; se corta si agenda o compra)
 
 - Día 1 · **¿Hiciste tu noche 1?** — _Diez minutos y una casilla marcada._

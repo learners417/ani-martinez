@@ -145,6 +145,19 @@ ENTREGA = {
 }
 
 # para quien no tomó la casilla: 4 correos en 10 días (se corta si agenda o compra el Círculo)
+SESION = {
+ 'asunto': 'Tu sesión conmigo · elige tu horario',
+ 'vista_previa': 'Elige el día y la hora, y trae tu mapa de la noche.',
+ 'html': html_correo([
+   'Hola {{contact.first_name}}:',
+   'Gracias por reservar tu primera sesión conmigo. Son 45 minutos por videollamada.',
+   'Si todavía no elegiste el día y la hora, hazlo aquí:',
+   link('→ Elige tu horario', 'https://ani-martinez.com/libro-agenda'),
+   'Antes de la sesión, completa en tu libro el mapa de la noche (página 16) y tu radiografía (página 18). Respóndeme este correo con las dos cosas. Así llego sabiendo de ti.',
+   'Y si después quieres hacer el Círculo de Restauración conmigo, los USD 97 de esta sesión se descuentan si entras en los 7 días siguientes.',
+   'Ani']),
+}
+
 SECUENCIA = [
  {'dia': 1, 'asunto': '¿Hiciste tu noche 1?', 'vista_previa': 'Diez minutos y una casilla marcada.',
   'html': html_correo(['Hola {{contact.first_name}}:',
@@ -176,10 +189,11 @@ SECUENCIA = [
 
 if __name__ == '__main__':
     os.makedirs('correos', exist_ok=True)
-    json.dump({'entrega': ENTREGA, 'cada_noche': noches, 'secuencia': SECUENCIA}, open('correos/correos.json', 'w'), ensure_ascii=False, indent=1)
+    json.dump({'entrega': ENTREGA, 'sesion': SESION, 'cada_noche': noches, 'secuencia': SECUENCIA}, open('correos/correos.json', 'w'), ensure_ascii=False, indent=1)
     # documento legible para revisar
     md = ['# Correos del libro «Vuelve a dormir» · Ani Martínez\n',
           '## Entrega (al pagar el libro)\n', f"**{ENTREGA['asunto']}**  \n_{ENTREGA['vista_previa']}_\n"]
+    md.append(f"\n## Sesión pagada (al pagar la sesión de USD 97)\n\n**{SESION['asunto']}**  \n_{SESION['vista_previa']}_\n")
     md.append('\n## Secuencia de 10 días (quien no tomó la casilla; se corta si agenda o compra)\n')
     for c in SECUENCIA:
         md.append(f"- Día {c['dia']} · **{c['asunto']}** — _{c['vista_previa']}_")
@@ -188,6 +202,6 @@ if __name__ == '__main__':
         md.append(f"- {c['asunto']}")
     open('correos/correos.md', 'w').write('\n'.join(md))
     # lo que lee la app (Vercel): entrega y secuencia al comprar, y las 84 noches del cron
-    json.dump({'entrega': ENTREGA, 'secuencia': SECUENCIA}, open('../lib/libro-correos.json', 'w'), ensure_ascii=False)
+    json.dump({'entrega': ENTREGA, 'sesion': SESION, 'secuencia': SECUENCIA}, open('../lib/libro-correos.json', 'w'), ensure_ascii=False)
     json.dump([{'n': c['n'], 'asunto': c['asunto'], 'html': c['html']} for c in noches], open('../lib/libro-noches.json', 'w'), ensure_ascii=False)
     print(len(noches), 'noches')
