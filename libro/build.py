@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Arma «Vuelve a dormir» (Ani Martínez) en HTML y PDF completable (WeasyPrint)."""
+"""Arma «Lo que no te deja dormir» (Ani Martínez) en HTML y PDF completable (WeasyPrint)."""
 import math, os, sys, html as H
 from contenido import *
 
@@ -118,14 +118,14 @@ add(pg(f'''
   <img class="tapa-logo" src="{M}logotipo-tinta.png">
   <div class="tapa-arco">{arco_noches()}</div>
   <p class="tapa-nota">cada punto es una noche</p>
-  <h1 class="tapa-t">Vuelve a dormir<br><em>en 12 semanas</em></h1>
+  <h1 class="tapa-t">Lo que no te<br>deja dormir<br><em>12 semanas · 84 noches</em></h1>
   <p class="tapa-b">{e(BAJADA)}</p>
 </div>''', cls='portada', page='portada'))
 
 # 2 · créditos
 add(pg(f'''
 <div class="creditos">
- <p class="cr-t">Vuelve a dormir en 12 semanas</p>
+ <p class="cr-t">Lo que no te deja dormir</p>
  <p>Ani Martínez · creadora del método TamÍm</p>
  <p>Primera edición · 2026</p>
  <hr class="filete">
@@ -275,7 +275,7 @@ def marca_pg(items, completa):
 add(marca_pg(['Me despierto de madrugada y no vuelvo a dormir', 'Me cuesta dormirme porque la cabeza no para',
               'Duermo, pero me levanto cansada', 'Ya probé muchas cosas y vuelvo a lo de antes',
               'Por fuera sostengo todo y nadie sabe cómo duermo'],
-             ['Lo que más me cansa de no dormir es…', 'Si dentro de 12 semanas durmiera bien, lo primero que haría es…']))
+             ['Lo que más me cansa de no dormir es…', 'Si mis noches cambiaran, lo primero que haría es…']))
 
 # tu mapa de la noche
 horas = ['20', '21', '22', '23', '0', '1', '2', '3', '4', '5', '6', '7']
@@ -518,7 +518,7 @@ else:
      <div><p class="cf">¿Cuántas veces te despertaste?</p>{tx()}</div>
      <div><p class="cf">¿Qué cambió?</p>{tx()}</div>
     </div>
-    <p class="cf">Y la pregunta del principio: ¿desde cuándo duermes de verdad?</p>{ta('30mm')}
+    <p class="cf">Y la pregunta del principio: ¿qué cambió en tus noches desde la noche 1?</p>{ta('30mm')}
     '''))
 
     # tus 12 semanas
@@ -543,7 +543,7 @@ else:
     marca_ix('Tus cartas de rescate', 'cartas')
     def carta(i, t, txt):
         cuerpo = f'<p>{e(txt)}</p>' if txt else f'{tx()}{tx()}{tx()}'
-        return f'<div class="carta"><p class="ca-n">0{i}</p><p class="ca-t">{e(t)}</p>{cuerpo}<img class="ca-ll" src="{M}llama-oro.png"><p class="ca-m">Vuelve a dormir · Ani Martínez</p></div>'
+        return f'<div class="carta"><p class="ca-n">0{i}</p><p class="ca-t">{e(t)}</p>{cuerpo}<img class="ca-ll" src="{M}llama-oro.png"><p class="ca-m">Lo que no te deja dormir · Ani Martínez</p></div>'
     add(pg(f'''
     {lab('Tus cartas de rescate', 'carta')}
     <h2>Para recortar y tener a mano</h2>
@@ -598,7 +598,7 @@ add(pg(f'''
  <p>Ani Martínez es directora teatral y creadora del método TamÍm, que integra espíritu, alma y cuerpo con Dios en el centro. Lo validó con su tutor de tesis y acompaña a mujeres a recorrerlo uno a uno.</p>
  <p>Une la Teoterapia, el psicodrama y la escucha del cuerpo. Su camino empezó en su propia historia: siete años con un diagnóstico que llamaron incurable, y una restauración que hoy enseña.</p>
  <hr class="filete">
- <p class="mu">Vuelve a dormir en 12 semanas · Primera edición · 2026<br>ani-martinez.com</p>
+ <p class="mu">Lo que no te deja dormir · Primera edición · 2026<br>ani-martinez.com</p>
  <img class="au-lock" src="{M}lockup-tamim-tinta.png">
 </div>''', cls='plano'))
 
@@ -612,12 +612,12 @@ def indice_html():
 CSS = open(os.path.join(BASE, 'libro.css')).read().replace('%F%', F).replace('%M%', M)
 cuerpo = ''.join(paginas).replace('%%INDICE%%', indice_html())
 doc = f'''<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
-<title>Vuelve a dormir en 12 semanas</title>
+<title>Lo que no te deja dormir</title>
 <meta name="author" content="Ani Martínez"><style>{CSS}</style></head><body>{cuerpo}</body></html>'''
 open(os.path.join(BASE, 'libro.html'), 'w').write(doc)
 
 if '--pdf' in sys.argv:
     import weasyprint
-    out = sys.argv[sys.argv.index('--pdf') + 1] if len(sys.argv) > sys.argv.index('--pdf') + 1 else 'vuelve-a-dormir.pdf'
+    out = sys.argv[sys.argv.index('--pdf') + 1] if len(sys.argv) > sys.argv.index('--pdf') + 1 else 'lo-que-no-te-deja-dormir.pdf'
     weasyprint.HTML(string=doc).write_pdf(out, pdf_forms=True)
     print('PDF', out)

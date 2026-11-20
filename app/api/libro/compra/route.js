@@ -1,4 +1,4 @@
-// Libro «Vuelve a dormir»: lo que pasa cuando alguien paga en el embudo del libro.
+// Libro «Lo que no te deja dormir»: lo que pasa cuando alguien paga en el embudo del libro.
 // La llaman los flujos «Low ·» de GHL con la acción Webhook (POST), una por producto:
 //   https://ani-martinez.vercel.app/api/libro/compra?evento=libro&k=CLAVE
 //   https://ani-martinez.vercel.app/api/libro/compra?evento=casilla&k=CLAVE

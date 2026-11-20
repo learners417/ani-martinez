@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Libro «Vuelve a dormir»: las fuentes de las páginas y las imágenes se leen desde GHL; el PDF pago no se indexa.
+  // Libro «Lo que no te deja dormir»: las fuentes de las páginas y las imágenes se leen desde GHL; el PDF pago no se indexa.
   async headers() {
     return [
       { source: '/libro/src/:path*', headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }, { key: 'Cache-Control', value: 'no-cache' }] },

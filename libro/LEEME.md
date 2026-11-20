@@ -1,4 +1,4 @@
-# Libro «Vuelve a dormir en 12 semanas» · el embudo low de Ani
+# Libro «Lo que no te deja dormir» · el embudo low de Ani
 
 Emula el embudo low de Rosana (libro 27 → casilla → sesión 97 → agenda → gracias), con la marca y el método de Ani.
 
@@ -21,11 +21,11 @@ Las páginas 1, 4 y 5 son un bloque «Código personalizado» con el cargador (p
 - Todo depende de `GHL_TOKEN` en Vercel (integración privada de la subcuenta: contacts.readonly, contacts.write, conversations/message.write). Sin token, las rutas responden y no hacen nada.
 
 ## Productos
-- Libro «Vuelve a dormir en 12 semanas» · USD 27 · PDF completable de 139 páginas: public/libro/d/lfjc5z2sokpm/vuelve-a-dormir-12-semanas.pdf (no se indexa).
+- Libro «Lo que no te deja dormir» (12 semanas · 84 noches) · USD 27 · PDF completable de 139 páginas: public/libro/d/lfjc5z2sokpm/lo-que-no-te-deja-dormir.pdf (no se indexa). La promesa es el cambio que se mide en la radiografía (noches 1, 43 y 84), no un resultado de sueño (pedido de Ani, decidido por Javo el 19 nov).
 - Casilla «Ani te escribe cada noche» · USD 17 · 84 correos a las 21 h (libro/correos/correos.json → cada_noche).
 - Sesión con Ani · USD 97 · 45 min por videollamada.
-- Capítulo 1 sin costo (puerta de entrada): public/libro/capitulo-1-vuelve-a-dormir.pdf.
+- Capítulo 1 sin costo (puerta de entrada): public/libro/capitulo-1-lo-que-no-te-deja-dormir.pdf.
 
 ## Cómo se rehace
-Libro: `cd libro && python3 build.py --pdf vuelve-a-dormir-12-semanas.pdf` (y `--muestra` para el capítulo 1). Necesita WeasyPrint 70 y las fuentes Cormorant Garamond y Lora (instancias estáticas).
+Libro: `cd libro && python3 build.py --pdf lo-que-no-te-deja-dormir.pdf` (y `--muestra` para el capítulo 1). Las imágenes de la marca (carpeta marca/) no están en el repo. Necesita WeasyPrint 70 y las fuentes Cormorant Garamond y Lora (instancias estáticas).
 Páginas: `python3 paginas.py ../public/libro/src` (escribe también public/libro/ghl). Correos: `python3 correos.py` (escribe también lib/libro-correos.json y lib/libro-noches.json).

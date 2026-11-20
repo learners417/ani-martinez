@@ -1,8 +1,8 @@
 {
  "entrega": {
-  "asunto": "Tu libro está aquí · Vuelve a dormir",
+  "asunto": "Tu libro está aquí · Lo que no te deja dormir",
   "vista_previa": "Tu noche 1 puede ser hoy: tres pasos, diez minutos.",
-  "html": "<div style=\"font-family:Georgia,serif;font-size:18px;line-height:1.65;color:#242018\"><p>Hola {{contact.first_name}}:</p><p><br></p><p>Gracias por tu compra. Aquí está tu libro:</p><p><br></p><p><a href=\"https://ani-martinez.vercel.app/libro/d/lfjc5z2sokpm/vuelve-a-dormir-12-semanas.pdf\" style=\"color:#8C7345;text-decoration:underline\">→ Descargar «Vuelve a dormir en 12 semanas»</a></p><p><br></p><p>Es un PDF que completas en la pantalla o imprimes. Si lo completas en la pantalla, guárdalo cada vez que escribas.</p><p><br></p><p><em>Tu noche 1, hoy:</em><br>1. Haz tu mapa de la noche (página 16).<br>2. Completa tu radiografía (página 18).<br>3. Haz tu primera invitación y marca la casilla (página 21).</p><p><br></p><p>Diez minutos. Esta noche no cambias nada: solo miras.</p><p><br></p><p>Ani</p></div>"
+  "html": "<div style=\"font-family:Georgia,serif;font-size:18px;line-height:1.65;color:#242018\"><p>Hola {{contact.first_name}}:</p><p><br></p><p>Gracias por tu compra. Aquí está tu libro:</p><p><br></p><p><a href=\"https://ani-martinez.vercel.app/libro/d/lfjc5z2sokpm/lo-que-no-te-deja-dormir.pdf\" style=\"color:#8C7345;text-decoration:underline\">→ Descargar «Lo que no te deja dormir»</a></p><p><br></p><p>Es un PDF que completas en la pantalla o imprimes. Si lo completas en la pantalla, guárdalo cada vez que escribas.</p><p><br></p><p><em>Tu noche 1, hoy:</em><br>1. Haz tu mapa de la noche (página 16).<br>2. Completa tu radiografía (página 18).<br>3. Haz tu primera invitación y marca la casilla (página 21).</p><p><br></p><p>Diez minutos. Esta noche no cambias nada: solo miras.</p><p><br></p><p>Ani</p></div>"
  },
  "sesion": {
   "asunto": "Tu sesión conmigo · elige tu horario",
@@ -512,7 +512,7 @@
    "n": 84,
    "asunto": "Noche 84 · Noche 84",
    "vista_previa": "Capítulo 12 · Hoy duermo. Y completas tu radiografía final.",
-   "html": "<div style=\"font-family:Georgia,serif;font-size:18px;line-height:1.65;color:#242018\"><p>Hola {{contact.first_name}}:</p><p><br></p><p>Hoy duermo. Me levanto. No finjo. Esta noche, el último capítulo y tu radiografía final.</p><p><br></p><p><em>Tu invitación de esta noche · Noche 84 · Cierra la semana</em><br>Capítulo 12 · Hoy duermo. Y completas tu radiografía final.</p><p><br></p><p>Cuando la hagas, marca la casilla en tu libro.</p><p><br></p><p>Ani</p><p><br></p><p>P. D. Si quieres seguir conmigo, uno a uno, en este video te explico cómo es el Círculo de Restauración: <a href=\"https://ani-martinez.com/vsl?utm_source=correo&utm_medium=email&utm_campaign=cada-noche&utm_content=n84\" style=\"color:#8C7345;text-decoration:underline\">mirar el video</a>.</p></div>"
+   "html": "<div style=\"font-family:Georgia,serif;font-size:18px;line-height:1.65;color:#242018\"><p>Hola {{contact.first_name}}:</p><p><br></p><p>Esta noche, el último capítulo, con mi historia, y tu radiografía final.</p><p><br></p><p><em>Tu invitación de esta noche · Noche 84 · Cierra la semana</em><br>Capítulo 12 · Hoy duermo. Y completas tu radiografía final.</p><p><br></p><p>Cuando la hagas, marca la casilla en tu libro.</p><p><br></p><p>Ani</p><p><br></p><p>P. D. Si quieres seguir conmigo, uno a uno, en este video te explico cómo es el Círculo de Restauración: <a href=\"https://ani-martinez.com/vsl?utm_source=correo&utm_medium=email&utm_campaign=cada-noche&utm_content=n84\" style=\"color:#8C7345;text-decoration:underline\">mirar el video</a>.</p></div>"
   }
  ],
  "secuencia": [

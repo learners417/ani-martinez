@@ -93,7 +93,7 @@ NOTAS = {
  81: ("La noche que…", "Agradece por una noche de este camino, por su nombre."),
  82: ("Cuéntalo", "Lo que se comparte se queda."),
  83: ("No mires la hora", "Si te despiertas, usa tu afiche. Ya sabes qué hacer."),
- 84: ("Noche 84", "Hoy duermo. Me levanto. No finjo. Esta noche, el último capítulo y tu radiografía final."),
+ 84: ("Noche 84", "Esta noche, el último capítulo, con mi historia, y tu radiografía final."),
 }
 
 def cap_de(n):
@@ -132,12 +132,12 @@ for n in range(1, 85):
     noches.append({'n': n, 'asunto': f'Noche {n} · {asunto}', 'vista_previa': inv[:110], 'html': html_correo(ps)})
 
 ENTREGA = {
- 'asunto': 'Tu libro está aquí · Vuelve a dormir',
+ 'asunto': 'Tu libro está aquí · Lo que no te deja dormir',
  'vista_previa': 'Tu noche 1 puede ser hoy: tres pasos, diez minutos.',
  'html': html_correo([
    'Hola {{contact.first_name}}:',
    'Gracias por tu compra. Aquí está tu libro:',
-   link('→ Descargar «Vuelve a dormir en 12 semanas»', 'https://ani-martinez.vercel.app/libro/d/lfjc5z2sokpm/vuelve-a-dormir-12-semanas.pdf'),
+   link('→ Descargar «Lo que no te deja dormir»', 'https://ani-martinez.vercel.app/libro/d/lfjc5z2sokpm/lo-que-no-te-deja-dormir.pdf'),
    'Es un PDF que completas en la pantalla o imprimes. Si lo completas en la pantalla, guárdalo cada vez que escribas.',
    '<em>Tu noche 1, hoy:</em><br>1. Haz tu mapa de la noche (página 16).<br>2. Completa tu radiografía (página 18).<br>3. Haz tu primera invitación y marca la casilla (página 21).',
    'Diez minutos. Esta noche no cambias nada: solo miras.',
@@ -191,7 +191,7 @@ if __name__ == '__main__':
     os.makedirs('correos', exist_ok=True)
     json.dump({'entrega': ENTREGA, 'sesion': SESION, 'cada_noche': noches, 'secuencia': SECUENCIA}, open('correos/correos.json', 'w'), ensure_ascii=False, indent=1)
     # documento legible para revisar
-    md = ['# Correos del libro «Vuelve a dormir» · Ani Martínez\n',
+    md = ['# Correos del libro «Lo que no te deja dormir» · Ani Martínez\n',
           '## Entrega (al pagar el libro)\n', f"**{ENTREGA['asunto']}**  \n_{ENTREGA['vista_previa']}_\n"]
     md.append(f"\n## Sesión pagada (al pagar la sesión de USD 97)\n\n**{SESION['asunto']}**  \n_{SESION['vista_previa']}_\n")
     md.append('\n## Secuencia de 10 días (quien no tomó la casilla; se corta si agenda o compra)\n')

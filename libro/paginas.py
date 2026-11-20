@@ -12,7 +12,7 @@ URL = {
  'sesion': DOM + '/libro-sesion',
  'agenda': DOM + '/libro-agenda',
  'gracias': DOM + '/libro-gracias',
- 'pdf': CDN + 'libro/d/lfjc5z2sokpm/vuelve-a-dormir-12-semanas.pdf',
+ 'pdf': CDN + 'libro/d/lfjc5z2sokpm/lo-que-no-te-deja-dormir.pdf',
  'circulo': DOM + '/vsl',
 }
 CAL_ID = 'JdRaWLq4TpCIbHNgLGuG'
@@ -237,14 +237,14 @@ def doc(titulo, cuerpo, extra_js='', noindex=False):
 
 BAR = f'<div class="bar"><img src="{MARCA}logotipo-tinta.png" alt="Ani Martínez" width="210" height="24"><span>MÉTODO TAMÍM</span></div>'
 LIBRO3D = '<div class="bk3" aria-hidden="true"><div class="bk"><div class="bkb"></div><div class="bkp"></div><div class="bks"></div><div class="bkf"></div></div><div class="bksh"></div></div>'
-CTA = f'<a class="cta" href="{URL["pago"]}" target="_top">Quiero volver a dormir{I("flecha")}</a>'
+CTA = f'<a class="cta" href="{URL["pago"]}" target="_top">Quiero mi libro{I("flecha")}</a>'
 FOOT = '<p class="foot">ANI MARTÍNEZ · MÉTODO TAMÍM · ani-martinez.com</p>'
 
 def landing():
     feats = [('luna', '84 invitaciones', 'Una por noche, de 5 a 10 minutos, para hacer en tu vida real.'),
              ('libro', '12 capítulos', 'Uno por semana: una historia mía, lo que hay debajo y tu regla.'),
              ('dado', '6 juegos', 'Para entender tu noche sin culparte.'),
-             ('termo', 'Tu descanso, medido', 'Las noches 1, 43 y 84, con los mismos seis números.'),
+             ('termo', 'Tu cambio, medido', 'Las noches 1, 43 y 84, con los mismos seis números.'),
              ('carta', '8 cartas de rescate', 'Para tener a mano si te despiertas de madrugada.'),
              ('mesa', 'Un afiche para tu mesa de noche', 'Cuatro pasos para las tres de la mañana.')]
     feat = ''.join(f'<div class="fi rv">{I(k)}<div><h3>{t}</h3><p>{d}</p></div></div>' for k, t, d in feats)
@@ -256,7 +256,7 @@ def landing():
     dimh = ''.join(f'<div class="dim rv"><span class="n">{n}</span><p class="k">{k}</p><h3>{d}</h3><p>{t}</p></div>' for n, k, d, t in dims)
     path = [('1', 'Espíritu', 'Semanas 1 a 4', 'Dejas de pelear sola con la noche.'),
             ('2', 'Alma', 'Semanas 5 a 8', 'Dejas de fingir que estás bien.'),
-            ('3', 'Cuerpo', 'Semanas 9 a 12', 'Tu cuerpo vuelve a saber dormir.')]
+            ('3', 'Cuerpo', 'Semanas 9 a 12', 'Escuchas lo que tu cuerpo te pide.')]
     pathh = ''.join(f'<div class="st rv"><span class="lt">{n}</span><div><h3>{t}</h3><span class="dd">{d}</span><p>{x}</p></div></div>' for n, t, d, x in path)
     filas = [('Espíritu', 'Paz al acostarte'), ('', 'Cercanía con Dios'), ('Alma', 'Calma de tu mente de noche'),
              ('', 'Cómo te hablas a ti misma'), ('Cuerpo', 'Cómo duermes'), ('', 'Energía al despertar')]
@@ -280,8 +280,8 @@ def landing():
     c = f'''{BAR}
 <section class="hero"><div class="wrap hgrid">
  <div><span class="eyb">LIBRO DIGITAL · 12 SEMANAS</span>
-  <h1>Un libro para volver a <em>dormir de verdad</em></h1>
-  <p class="lead">84 noches, una invitación chica por noche, en tu vida real. Lo escribí para las mujeres que sostienen todo por fuera y a las tres de la mañana siguen despiertas.</p>
+  <h1>Descubre <em>lo que no te deja dormir</em></h1>
+  <p class="lead">84 noches, una invitación chica por noche, en tu vida real, y tu cambio medido con seis números. Lo escribí para las mujeres que sostienen todo por fuera y a las tres de la mañana siguen despiertas.</p>
   {CTA}<p class="micro">USD 27 · lo recibes en tu correo al instante</p>
   <div class="chips"><span class="chip">{I("luna")}84 noches</span><span class="chip">{I("libro")}12 capítulos</span><span class="chip">{I("dado")}6 juegos</span></div>
  </div>
@@ -293,7 +293,7 @@ def landing():
  <h2 class="rv">Son las tres de la mañana y estás despierta</h2>
  <p class="lead rv">La casa en silencio, el teléfono boca abajo para no ver la hora y la cabeza encendida como si fuera mediodía. Repasas la reunión de mañana. Haces la cuenta de cuántas horas te quedan. Y al otro día te levantas, diriges, decides y sostienes. Nadie lo nota.</p>
  <div class="quote rv"><p>Que nadie lo note no significa que estés bien.</p><span>ANI MARTÍNEZ</span></div>
- <p class="lead rv">No te falta voluntad ni información. Lo que pasa a las tres tiene un orden, y se puede mirar. Para eso escribí este libro: para que recuperes tus noches una por vez.</p>
+ <p class="lead rv">No te falta voluntad ni información. Lo que pasa a las tres tiene un orden, y se puede mirar. Para eso escribí este libro: para que lo mires en orden, una noche por vez.</p>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -348,7 +348,7 @@ def landing():
 <section class="sec" id="libro"><div class="wrap">
  <div class="offer rv">
   <div>{LIBRO3D}</div>
-  <div><p class="ot">Vuelve a dormir en 12 semanas</p><p class="os">LIBRO DIGITAL · 139 PÁGINAS · ANI MARTÍNEZ</p>
+  <div><p class="ot">Lo que no te deja dormir</p><p class="os">LIBRO DIGITAL · 139 PÁGINAS · ANI MARTÍNEZ</p>
    <ul class="inc">{inch}</ul>
    <p class="price">USD 27</p><p class="pnote">Pagas con tarjeta, en una sola vez. Lo recibes en tu correo al instante.</p>
    {CTA}</div>
@@ -365,18 +365,18 @@ def landing():
  <img class="arco" src="{MARCA}arco-con-llama-oro.png" alt="" width="180">
  <h2 class="rv">Tu noche 1 puede ser hoy</h2>
  <p class="lead rv">Una invitación chica, cinco minutos, y la casilla marcada.</p>
- <a class="cta" href="{URL["pago"]}" target="_top">Quiero volver a dormir{I("flecha")}</a><p class="micro">USD 27 · libro digital</p>
+ <a class="cta" href="{URL["pago"]}" target="_top">Quiero mi libro{I("flecha")}</a><p class="micro">USD 27 · libro digital</p>
 </div></section>
 {FOOT}'''
-    return doc('Vuelve a dormir en 12 semanas · el libro de Ani Martínez', c)
+    return doc('Lo que no te deja dormir · el libro de Ani Martínez', c)
 
 def pago():
     c = f'''{BAR}
 <section style="padding:6px 0 26px"><div class="wrap narrow">
- <div class="ph"><img src="{IMG}cover.webp" alt="Vuelve a dormir en 12 semanas" width="78"><div><b>Vuelve a dormir en 12 semanas</b><span>Libro digital · 139 páginas · lo recibes en tu correo al instante.</span></div></div>
+ <div class="ph"><img src="{IMG}cover.webp" alt="Lo que no te deja dormir" width="78"><div><b>Lo que no te deja dormir</b><span>Libro digital · 139 páginas · lo recibes en tu correo al instante.</span></div></div>
  <p class="mu" style="font-size:17px;margin:0">Pagas con tarjeta, en una sola vez. Completa tus datos aquí abajo.</p>
 </div></section>'''
-    return doc('Tu libro · Vuelve a dormir', c, noindex=True)
+    return doc('Tu libro · Lo que no te deja dormir', c, noindex=True)
 
 def sesion():
     c = f'''{BAR}
@@ -424,7 +424,7 @@ def gracias():
 <section style="padding:6px 0 60px"><div class="wrap narrow">
  <h1 style="font-size:clamp(46px,11vw,74px);margin:10px 0 12px">Listo. <em>Ya es tuyo.</em></h1>
  <p class="lead">También te lo mandé a tu correo.</p>
- <div class="ph"><img src="{IMG}cover.webp" alt="Vuelve a dormir en 12 semanas" width="78"><div><b>Vuelve a dormir en 12 semanas</b><span>PDF · 139 páginas</span></div></div>
+ <div class="ph"><img src="{IMG}cover.webp" alt="Lo que no te deja dormir" width="78"><div><b>Lo que no te deja dormir</b><span>PDF · 139 páginas</span></div></div>
  <a class="cta dl" href="{URL["pdf"]}" target="_blank" rel="noopener">{I("descarga")}Descargar mi libro</a>
  <p class="lab" style="margin-top:46px">{I("luna")}Tu noche 1, hoy</p>
  <div class="steps" style="grid-template-columns:1fr">
@@ -437,7 +437,7 @@ def gracias():
  <p class="firma">Nos vemos en la noche 1.<span>ANI MARTÍNEZ · MÉTODO TAMÍM</span></p>
 </div></section>
 {FOOT}'''
-    return doc('Ya es tuyo · Vuelve a dormir', c, noindex=True)
+    return doc('Ya es tuyo · Lo que no te deja dormir', c, noindex=True)
 
 def _reglas(css):
     reglas, prof, cur = [], 0, ''

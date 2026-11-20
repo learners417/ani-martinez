@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Contenido del libro «Vuelve a dormir» de Ani Martínez.
+"""Contenido del libro «Lo que no te deja dormir» de Ani Martínez.
 Voz de Ani: cercana y directa, en tú. Orden del método: espíritu → alma → cuerpo.
 Nada de «paciente». TamÍm con tilde en la I. Énfasis en itálica, nunca negrita."""
 
-TITULO = "Vuelve a dormir"
-SUBTITULO = "en 12 semanas"
+TITULO = "Lo que no te deja dormir"
+SUBTITULO = "12 semanas · 84 noches"
 BAJADA = "El método TamÍm noche por noche: espíritu, alma y cuerpo, en tu vida real"
 
 # Tipos de invitación: clave → (nombre, qué es)
@@ -35,7 +35,7 @@ PARTES = [
         "En estas cuatro semanas vas a sacar de tu cabeza lo que da vueltas, vas a mirar tus máscaras y vas a soltar lo que cargas.",
         "Vas a usar herramientas del teatro. No hace falta saber actuar: hace falta dejar de hacerlo."]},
     {"n": 3, "dim": "Cuerpo", "nombre": "El cuerpo que descansa", "noches": (57, 84), "semanas": (9, 12),
-     "lema": "Tu cuerpo vuelve a saber dormir.",
+     "lema": "Escuchas lo que tu cuerpo te pide.",
      "intro": [
         "El cuerpo expresa, y necesita ser escuchado. Lo que comes, lo que tomas, la luz que ves y la hora a la que cenas también se acuestan contigo.",
         "En estas cuatro semanas haces de tu cuerpo un laboratorio: retiras algo, pones otra cosa en su lugar y miras qué pasa con tu noche.",
