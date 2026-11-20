@@ -4,7 +4,7 @@ Voz de Ani: cercana y directa, en tú. Orden del método: espíritu → alma →
 Nada de «paciente». TamÍm con tilde en la I. Énfasis en itálica, nunca negrita."""
 
 TITULO = "Lo que no te deja dormir"
-SUBTITULO = "12 semanas · 84 noches"
+SUBTITULO = "84 noches"
 BAJADA = "El método TamÍm noche por noche: espíritu, alma y cuerpo, en tu vida real"
 
 # Tipos de invitación: clave → (nombre, qué es)

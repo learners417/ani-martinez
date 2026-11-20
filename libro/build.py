@@ -118,7 +118,7 @@ add(pg(f'''
   <img class="tapa-logo" src="{M}logotipo-tinta.png">
   <div class="tapa-arco">{arco_noches()}</div>
   <p class="tapa-nota">cada punto es una noche</p>
-  <h1 class="tapa-t">Lo que no te<br>deja dormir<br><em>12 semanas · 84 noches</em></h1>
+  <h1 class="tapa-t">Lo que no te<br>deja dormir<br><em>84 noches</em></h1>
   <p class="tapa-b">{e(BAJADA)}</p>
 </div>''', cls='portada', page='portada'))
 
@@ -585,7 +585,7 @@ else:
      <h2>El Círculo de Restauración</h2>
      {ps([
       'Este libro es el camino que puedes recorrer sola. Hay mujeres que quieren ir más profundo y más rápido, conmigo al lado. Para ellas está el Círculo de Restauración.',
-      'Son doce semanas de sesiones uno a uno conmigo, con el método TamÍm completo: espíritu, alma y cuerpo, medido con tu radiografía al entrar, a la mitad y al salir.',
+      'Son diez semanas y cinco sesiones uno a uno conmigo, una cada dos semanas, con el método TamÍm completo: espíritu, alma y cuerpo, medido con tu radiografía al entrar, a la mitad y al salir.',
       'Trabajo con pocas mujeres por vez, y entran por postulación: elijo a quienes están comprometidas y dispuestas a seguir el método al pie de la letra.'])}
      <p class="cf">En este video te explico cómo es, paso a paso:</p>
      <p class="link"><a href="https://ani-martinez.com/vsl">ani-martinez.com/vsl</a></p>

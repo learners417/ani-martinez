@@ -273,13 +273,13 @@ def landing():
            ('¿Y si una noche no puedo?', 'Sigues la noche siguiente. No se empieza de nuevo el lunes.'),
            ('¿Es religioso?', 'Es una relación, no una religión. El espíritu es una de las tres dimensiones del método, y el libro te invita a hablar con Dios con tus palabras, sin fórmulas.'),
            ('¿Reemplaza a mi médico o mi tratamiento?', 'No. Es un libro para mirar tu noche en espíritu, alma y cuerpo. Si tienes un diagnóstico o tomas medicación, sigue con quien te atiende y no cambies nada por tu cuenta.'),
-           ('¿Y si quiero hacerlo acompañada?', 'Al final del libro te cuento cómo es el Círculo de Restauración: doce semanas, conmigo, uno a uno.')]
+           ('¿Y si quiero hacerlo acompañada?', 'Al final del libro te cuento cómo es el Círculo de Restauración: diez semanas y cinco sesiones conmigo, uno a uno.')]
     faqh = ''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q, a in faq)
     foto = (f'<div class="afoto rv"><img src="{FOTO}" alt="Ani Martínez" loading="lazy"></div>' if FOTO and not FOTO.startswith('%%')
             else f'<div class="rv"><p class="aq">«Somos tres. A mí me trataron una sola parte.»</p><p class="sig">ANI MARTÍNEZ</p></div>')
     c = f'''{BAR}
 <section class="hero"><div class="wrap hgrid">
- <div><span class="eyb">LIBRO DIGITAL · 12 SEMANAS</span>
+ <div><span class="eyb">LIBRO DIGITAL · 84 NOCHES</span>
   <h1>Descubre <em>lo que no te deja dormir</em></h1>
   <p class="lead">84 noches, una invitación chica por noche, en tu vida real, y tu cambio medido con seis números. Lo escribí para las mujeres que sostienen todo por fuera y a las tres de la mañana siguen despiertas.</p>
   {CTA}<p class="micro">USD 27 · lo recibes en tu correo al instante</p>

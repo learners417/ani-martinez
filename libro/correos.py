@@ -175,7 +175,7 @@ SECUENCIA = [
   'html': html_correo(['Hola {{contact.first_name}}:',
     'Muchas de las mujeres que acompaño lideran una empresa, un equipo o una casa entera. Son las que resuelven. Y llegan a mí porque la que resuelve todo no puede resolver su noche.',
     'El libro es el camino para recorrer sola, una noche por vez. Hay mujeres que quieren ir más profundo y más rápido, conmigo al lado.',
-    'Para ellas está el Círculo de Restauración: doce semanas, uno a uno, con el método TamÍm completo y medido con tu radiografía.',
+    'Para ellas está el Círculo de Restauración: diez semanas y cinco sesiones uno a uno, con el método TamÍm completo y medido con tu radiografía.',
     link('→ En este video te explico cómo es', utm(VSL, 'libro-secuencia', 'd6')),
     'Ani'])},
  {'dia': 10, 'asunto': 'Tu primera semana', 'vista_previa': 'Cerraste o estás por cerrar tu primera semana.',
