@@ -94,7 +94,7 @@ function Estacion() {
             <h2 className="mt">{e.tema}</h2>
             <p className="bajada mt">{e.bajada}</p>
             <hr className="filete" />
-            <p style={{ fontSize: 20 }}>Tres ejercicios en tu cuaderno, tus 3 preguntas para Ani y tu sesión con ella.</p>
+            <p style={{ fontSize: 20 }}>Tres ejercicios en tu cuaderno, tus 3 preguntas para Ani y tu sesión con ella. Los ejercicios te llevan unos <em>30 minutos</em>.</p>
           </>
         )}
         {!p.claseVista && (
@@ -109,7 +109,7 @@ function Estacion() {
     const escribir = (t) => set((x) => { const ej = [...(x.ejercicios || ["", "", ""])]; ej[j] = t; return { ...x, ejercicios: ej }; });
     cuerpo = (
       <>
-        <p className="versalita">Tu cuaderno · {j + 1} de 3</p>
+        <p className="versalita">Tu cuaderno · {j + 1} de 3 · 10 minutos</p>
         <h2 className="mt">{e.ejercicios[j]}</h2>
         <textarea className="mt2" rows={7} value={v} placeholder="Escribe aquí, con tus palabras" onChange={(ev) => escribir(ev.target.value)} />
         <div className="fila mt" style={{ justifyContent: "space-between" }}>
@@ -147,7 +147,7 @@ function Estacion() {
     cuerpo = (
       <>
         <h2>Antes de tu sesión</h2>
-        <p className="bajada mt">Respóndelas 24 horas antes. Le llegan a Ani para preparar tu sesión.</p>
+        <p className="bajada mt">Te lleva 5 minutos. Envíalas 24 horas antes: con eso tu sesión queda confirmada.</p>
         {PREGUNTAS_PRE_SESION.map((q, j) => {
           const val = p.pre?.[j] || "";
           const escribir = (t) => set((x) => { const pre = [...(x.pre || ["", "", ""])]; pre[j] = t; return { ...x, pre }; });
@@ -172,7 +172,7 @@ function Estacion() {
     cuerpo = (
       <>
         <h2>Tu sesión {n} con Ani</h2>
-        <p className="bajada mt">Llega 5 minutos antes, con agua y en un lugar donde puedas hablar tranquila.</p>
+        <p className="bajada mt">Dura 60 minutos, en tu hora local. Llega 5 minutos antes, con agua y en un lugar donde puedas hablar tranquila.</p>
         {ANI.agendaUrl && <a className="boton claro mt2" href={ANI.agendaUrl} target="_blank" rel="noreferrer">Agendar mi sesión</a>}
         <button className={`check mt ${p.sesion ? "si" : ""}`} onClick={() => { vibrar(); set((x) => ({ ...x, sesion: !x.sesion })); }}>
           <span className="caja" /> <span>Ya tuve mi sesión {n} con Ani</span>

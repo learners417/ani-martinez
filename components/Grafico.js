@@ -1,41 +1,29 @@
 import { DIMENSIONES } from "@/lib/contenido";
 import { promedios } from "@/lib/progreso";
 
-// Barras por dimensión: entrada (contorno) · mitad · salida (oro).
+// La radiografía: un número del 1 al 10 por parte, al entrar, a la mitad y al terminar.
+const MOMENTOS = [["entrada", "Al entrar"], ["mitad", "A la mitad"], ["salida", "Al terminar"]];
+
 export default function Grafico({ radiografias }) {
-  const series = [
-    ["entrada", "Entrada", "transparent"],
-    ["mitad", "Semana 5", "var(--oro-suave)"],
-    ["salida", "Salida", "var(--oro)"],
-  ].filter(([k]) => radiografias?.[k]);
-  if (!series.length) return null;
-  const vals = Object.fromEntries(series.map(([k]) => [k, promedios(radiografias[k])]));
+  if (!radiografias?.entrada) return null;
+  const vals = Object.fromEntries(MOMENTOS.map(([k]) => [k, promedios(radiografias[k])]));
   return (
     <div>
+      <div className="radio-fila radio-cab">
+        <span />
+        {MOMENTOS.map(([k, txt]) => <span key={k}>{txt}</span>)}
+      </div>
       {DIMENSIONES.map((d) => (
-        <div key={d.clave} className="mt">
-          <div className="fila" style={{ justifyContent: "space-between" }}>
-            <span style={{ fontFamily: "var(--serif)", fontSize: 24 }}>{d.nombre}</span>
-            <span style={{ fontFamily: "var(--serif)", fontSize: 26, color: "var(--oro-profundo)" }}>
-              {series.map(([k]) => vals[k][d.clave]).join(" → ")}
-            </span>
-          </div>
-          {series.map(([k, label, color]) => (
-            <div key={k} className="fila" style={{ marginTop: 8 }}>
-              <span style={{ width: 92, fontSize: 16, color: "var(--tinta-2)" }}>{label}</span>
-              <div className="pista">
-                <div
-                  style={{
-                    width: `${vals[k][d.clave] * 10}%`, height: "100%", borderRadius: 99,
-                    background: color === "transparent" ? "var(--tinta-2)" : color,
-                    transition: "width 1s cubic-bezier(.2,.7,.2,1)",
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+        <div key={d.clave} className="radio-fila">
+          <span className="radio-parte">{d.nombre}</span>
+          {MOMENTOS.map(([k]) => {
+            const v = vals[k]?.[d.clave];
+            const sube = k !== "entrada" && v != null && v > vals.entrada[d.clave];
+            return <span key={k} className={`radio-num ${v == null ? "falta" : ""} ${sube ? "sube" : ""}`}>{v ?? "·"}</span>;
+          })}
         </div>
       ))}
+      <p className="nota">Del 1 al 10. El cambio lo ves tú.</p>
     </div>
   );
 }

@@ -174,10 +174,13 @@ function ProximaSesion() {
         <h3 className="mt" style={{ fontSize: 30 }}>Agenda tu sesión con Ani</h3>
         {ANI.agendaUrl && !anotar && <a className="boton mt2" href={ANI.agendaUrl} target="_blank" rel="noreferrer">Elegir día y hora <IcoSalir /></a>}
         {!anotar && ANI.agendaUrl ? (
-          <button className="enlace" onClick={() => setAnotar(true)}>Ya la agendé: anotar la fecha</button>
+          <>
+            <p className="nota">Los horarios se muestran en tu hora local.</p>
+            <button className="enlace" onClick={() => setAnotar(true)}>Ya la agendé: anotar la fecha</button>
+          </>
         ) : (
           <>
-            <p className="mt2" style={{ fontSize: 19 }}>Anota el día y la hora. Te muestro cuánto falta.</p>
+            <p className="mt2" style={{ fontSize: 19 }}>Anota el día y la hora, en tu hora local. Te muestro cuánto falta.</p>
             <input className="mt" type="datetime-local" value={valor} onChange={(e) => setValor(e.target.value)} />
             <button
               className="boton mt"
@@ -198,7 +201,7 @@ function ProximaSesion() {
         <button className="nota" style={{ marginTop: 0 }} onClick={() => { setEditar(true); setAnotar(true); }}>Cambiar</button>
       </div>
       <p className="grande mt">{cuenta}</p>
-      <p className="bajada mt">{fechaLarga(iso).replace(/^./, (c) => c.toUpperCase())}</p>
+      <p className="bajada mt">{fechaLarga(iso).replace(/^./, (c) => c.toUpperCase())} · tu hora local</p>
       {!sesion?.demo && <button
         className="boton claro mt"
         onClick={() => descargarICS({ titulo: "Sesión con Ani · TamÍm", inicio: iso, detalle: "Responde tus 3 preguntas en la app 24 h antes." })}
@@ -215,7 +218,7 @@ function Siguiente({ paso }) {
   let sobre, titulo, bajada, href, cta;
   if (paso.tipo === "radiografia") {
     const m = MEDICIONES[paso.medicion];
-    sobre = m.cuando; titulo = m.nombre; bajada = "9 preguntas · 3 minutos"; href = `/radiografia?m=${paso.medicion}`; cta = "Responder ahora";
+    sobre = m.cuando; titulo = m.nombre; bajada = "Tu número del 1 al 10 · 3 minutos"; href = `/radiografia?m=${paso.medicion}`; cta = "Responder ahora";
   } else if (paso.tipo === "graduacion") {
     sobre = "Semana 10"; titulo = "Terminaste tu camino TamÍm."; bajada = "Mira tu antes y tu después."; href = "/graduacion"; cta = "Ver mi graduación";
   } else {
@@ -225,10 +228,10 @@ function Siguiente({ paso }) {
     sobre = `Estación ${e.letra} · ${e.semanas}`;
     titulo = e.tema;
     bajada =
-      listos < 3 ? `Clase y ejercicios · ${listos} de 3 listos`
+      listos < 3 ? `Ejercicios · ${listos} de 3 listos · unos ${(3 - listos) * 10} minutos`
       : e.audioUrl && !p.audio ? "Escucha tu audio guiado"
-      : !p.preEnviada ? "Responde tus 3 preguntas para Ani"
-      : "Ten tu sesión con Ani";
+      : !p.preEnviada ? "Responde tus 3 preguntas para Ani · 5 minutos"
+      : "Ten tu sesión con Ani · 60 minutos";
     href = `/estacion/${e.n}`; cta = "Seguir";
   }
   return (
@@ -303,7 +306,7 @@ function Hoy() {
 
       <Link href="/herramientas" className="herramienta">
         <span className="ico"><IcoRespirar /></span>
-        <span><span className="tit">Herramientas</span><br /><span className="sub">Respirar, soltar la mente y dormir mejor</span></span>
+        <span><span className="tit">Herramientas</span><br /><span className="sub">Respirar, soltar la mente y registrar tu sueño</span></span>
       </Link>
 
       <div className="tarjeta quieta">

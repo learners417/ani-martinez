@@ -37,8 +37,8 @@ function Radiografia() {
     return (
       <>
         <p className="versalita">{MEDICIONES[m].nombre}</p>
-        <h1 className="mt">Así estás hoy.</h1>
-        <p className="bajada mt">Ani ya puede ver tus números. Este es el punto desde donde medimos tu avance.</p>
+        <h1 className="mt">Tus números de hoy.</h1>
+        <p className="bajada mt">Tu espíritu, tu alma y tu cuerpo, cada uno con su número del 1 al 10. Lo medimos al entrar, a la mitad y al terminar.</p>
         <div className="tarjeta"><Grafico radiografias={estado.radiografias} /></div>
         <button className="boton mt2" onClick={() => router.push("/")}>Volver a Hoy</button>
       </>
@@ -54,7 +54,7 @@ function Radiografia() {
     setTimeout(() => {
       if (idx < PREGUNTAS.length - 1) return setIdx(idx + 1);
       const respuestas = Object.fromEntries(
-        DIMENSIONES.map((d) => [d.clave, d.preguntas.map((_, i) => nuevo[`${d.clave}-${i}`] ?? 0)])
+        DIMENSIONES.map((d) => [d.clave, d.preguntas.map((_, i) => nuevo[`${d.clave}-${i}`] ?? 1)])
       );
       actualizar((s) => ({
         ...s,
@@ -73,11 +73,11 @@ function Radiografia() {
       <div className="barra mt"><span style={{ width: `${((idx + 1) / PREGUNTAS.length) * 100}%` }} /></div>
       <h2 className="mt2" key={idx} style={{ animation: "subir .45s both" }}>{p.texto}</h2>
       <div className="escala mt2">
-        {Array.from({ length: 11 }, (_, v) => (
+        {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => (
           <button key={v} className={valor === v ? "si" : ""} onClick={() => elegir(v)}>{v}</button>
         ))}
       </div>
-      <div className="extremos"><span>Nada</span><span>Totalmente</span></div>
+      <div className="extremos"><span>1 · Nada</span><span>10 · Totalmente</span></div>
       {idx > 0 && (
         <button className="boton claro mt2" onClick={() => setIdx(idx - 1)}>Volver a la anterior</button>
       )}
